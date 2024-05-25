@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:alisatiyor/app/l10n/app_localizations.dart';
 import 'package:alisatiyor/app/l10n/localization_manager.dart';
 import 'package:alisatiyor/app/routes/app_routes.dart';
@@ -74,7 +76,7 @@ class _AppState extends State<App> {
             supportedLocales: AppLocalizations.supportedLocales,
             routerConfig: _appRouter.config(),
             builder: (context, router) {
-              print('network status: ${connectivity.wifiConnectionStatus}');
+              log('network status: ${connectivity.wifiConnectionStatus}');
               if (connectivity.wifiConnectionStatus ==
                   ConnectivityResult.none) {
                 return const NoNetworkWidget();

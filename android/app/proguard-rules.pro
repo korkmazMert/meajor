@@ -1,0 +1,2 @@
+-dontwarn com.google.errorprone.**
+-dontwarn javax.annotation.**

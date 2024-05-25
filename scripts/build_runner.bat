@@ -1,0 +1,3 @@
+@echo off
+echo Running build runner...
+call dart run build_runner watch --delete-conflicting-outputs

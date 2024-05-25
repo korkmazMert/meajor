@@ -1,0 +1,9 @@
+{
+    "@@locale": "tr",
+    "helloWorld": "Merhaba, Dünya!",
+    "greeting": "Uygulamama hoş geldiniz!",
+    "buttonText": "Bana tıkla",
+    "errorMessage": "Bir hata oluştu",
+    "successMessage": "İşlem başarılı",
+    "showSnackbar": "Snackbar göster"
+}

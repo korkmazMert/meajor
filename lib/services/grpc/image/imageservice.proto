@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package imageservice;
+
+service ImageService {
+  rpc SendImage(ImageRequest) returns (ImageResponse);
+  rpc ReceiveImage(ImageRequest) returns (ImageResponse);
+}
+
+message ImageRequest {
+  int64 sender_id = 1;
+  bytes image = 2;
+}
+
+message ImageResponse {
+  int64 sender_id = 1;
+  bytes image = 2;
+}

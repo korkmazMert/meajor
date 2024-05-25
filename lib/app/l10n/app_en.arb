@@ -1,0 +1,9 @@
+{
+    "@@locale": "en",
+    "helloWorld": "Hello, World!",
+    "greeting": "Welcome to my app!",
+    "buttonText": "Click me",
+    "errorMessage": "An error occurred",
+    "successMessage": "Operation successful",
+    "showSnackbar": "Show snackbar"
+}

@@ -25,7 +25,6 @@ class _CustomScaffoldViewState extends State<CustomScaffoldView> {
                 ImagePickerUtil().selectImageAdaptiveSheet(context);
               },
               child: const Icon(Icons.add)),
-          appBarBuilder: (context, tabsRouter) => AppBar(),
           homeIndex: 0,
           routes: [const HomeRoute(), AccountRoute()],
           bottomNavigationBuilder: (context, tabsRouter) =>

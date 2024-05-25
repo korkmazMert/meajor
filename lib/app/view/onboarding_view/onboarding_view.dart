@@ -36,7 +36,7 @@ class OnboardingViewState extends State<OnboardingView> {
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     if (value == 2) {
-                      context.router.push(const HomeRoute());
+                      context.router.replace(const HomeRoute());
                     } else {
                       _pageController.animateToPage(value + 1,
                           duration: AppDuration.defaultDuration,

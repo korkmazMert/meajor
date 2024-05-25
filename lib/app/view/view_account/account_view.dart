@@ -13,6 +13,7 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Column(
           children: [

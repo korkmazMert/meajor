@@ -1,4 +1,5 @@
 import 'package:alisatiyor/app/view/home_view/home_view_mixin.dart';
+import 'package:alisatiyor/core/padding/page_padding.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,15 @@ final class HomeView extends StatelessWidget with HomeViewMixin {
       ),
       body: Center(
           child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          homeViewHeader(context),
+          Padding(
+              padding: const PagePadding.allLow(),
+              child: homeViewHeader(context)),
+          Padding(
+            padding: const PagePadding.allLow(),
+            child: homeViewBody(context),
+          ),
         ],
       )),
     );

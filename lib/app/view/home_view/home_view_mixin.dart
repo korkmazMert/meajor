@@ -1,6 +1,6 @@
-import 'package:alisatiyor/app/view/home_view/recent_activites.dart';
 import 'package:alisatiyor/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 mixin HomeViewMixin {
   Widget homeViewHeader(BuildContext context) {
@@ -33,7 +33,10 @@ mixin HomeViewMixin {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Divider(endIndent: context.width * 0.05),
-        const RecentActivities(),
+        //latest activities
+        // const RecentActivities(),
+        // if there is no activity
+        Lottie.asset('assets/lottie/nothing_lottie.json'),
       ],
     );
   }

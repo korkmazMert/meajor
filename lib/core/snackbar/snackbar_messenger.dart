@@ -10,11 +10,3 @@ class SnackBarMessenger {
     Globals.scaffoldMessengerKey.currentState!.showSnackBar(snackBar);
   }
 }
-
-mixin SnackBarMessengerMixin {
-  final messenger = SnackBarMessenger();
-
-  void showSnackBar({required String message}) {
-    messenger.showSnackBar(message: message);
-  }
-}

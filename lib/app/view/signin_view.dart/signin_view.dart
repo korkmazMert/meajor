@@ -1,7 +1,7 @@
 import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/core/extensions/build_context_ext.dart';
-import 'package:alisatiyor/core/form_field/custom_text_form_field.dart';
 import 'package:alisatiyor/core/padding/page_padding.dart';
+import 'package:alisatiyor/core/widgets/form_field/custom_text_form_field.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

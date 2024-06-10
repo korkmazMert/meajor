@@ -4,13 +4,26 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-enum BoxNames { jwt }
+enum BoxNames { jwt, isFirstTime }
 
-enum BoxKeys { accessToken, refreshToken }
+enum BoxKeys { accessToken, refreshToken, isFirstTime }
 
 class HiveService {
   HiveService._();
   static final HiveService instance = HiveService._();
+  late dynamic isFirstTime;
+
+  // To set the first time the app is opened
+  Future<void> setOpenedForFirstTime() async {
+    await writeDataToBox(
+        BoxNames.isFirstTime.name, BoxKeys.isFirstTime.name, false);
+  }
+
+  // To get the is app opened before
+  Future<dynamic> getIsFirstTime() async {
+    return isFirstTime = await getDataFromBox(
+        BoxNames.isFirstTime.name, BoxKeys.isFirstTime.name);
+  }
 
   static Future<void> initHive() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
@@ -31,6 +44,7 @@ class HiveService {
 
     await Hive.openBox<dynamic>(BoxNames.jwt.name,
         encryptionCipher: HiveAesCipher(encryptionKeyUint8List));
+    await instance.getIsFirstTime();
   }
 
   Future<void> writeDataToBox(String boxName, String key, dynamic value) async {

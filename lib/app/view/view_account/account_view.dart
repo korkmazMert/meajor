@@ -2,9 +2,13 @@ import 'package:alisatiyor/app/l10n/app_localizations.dart';
 import 'package:alisatiyor/app/l10n/localization_manager.dart';
 import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/app/themes/theme_manager.dart';
+import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
 import 'package:alisatiyor/core/snackbar/snackbar_messenger_mixin.dart';
+import 'package:alisatiyor/core/widgets/alert_dialog/custom_alert_dialog.dart';
+import 'package:alisatiyor/core/widgets/form_field/custom_text_form_field.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class AccountView extends StatelessWidget with SnackBarMessengerMixin {
@@ -16,62 +20,98 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: [
-            ListTile(
-              title: const Text('Giriş Yap'),
-              trailing: const Icon(Icons.login),
-              onTap: () {
-                context.router.push(const SigninRoute());
-              },
-            ),
-            ListenableBuilder(
-              listenable: _themeManager,
-              builder: (context, child) => ListTile(
-                title: const Text('Karanlık Mod'),
-                trailing: Switch.adaptive(
-                  value: _themeManager.themeMode != ThemeMode.light,
-                  onChanged: (value) {
-                    _themeManager.toggleTheme(
-                        _themeManager.themeMode == ThemeMode.light
-                            ? ThemeMode.dark
-                            : ThemeMode.light);
-                  },
+        child: BlocBuilder<GeneralCubit, GeneralState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                if (state.state != GeneralStates.signedin &&
+                    state.state != GeneralStates.loading)
+                  ListTile(
+                    title: const Text('Giriş Yap'),
+                    trailing: const Icon(Icons.login),
+                    onTap: () {
+                      context.router.push(SigninRoute());
+                    },
+                  ),
+                if (state.state == GeneralStates.signedin &&
+                    state.accountInfo != null)
+                  ListTile(
+                    title: const Text('Profili Düzenle'),
+                    trailing: const Icon(Icons.edit),
+                    onTap: () {
+                      CustomAlertDialog.showAlertDialog(
+                          context: context,
+                          title: const Text('Profili Düzenle'),
+                          content:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            CustomTextFormField(
+                              labelText: 'Email',
+                              hintText: state.accountInfo?.user?.email ?? '',
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              labelText: 'Ad',
+                              hintText:
+                                  state.accountInfo?.user?.firstName ?? '',
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              labelText: 'Soyad',
+                              hintText: state.accountInfo?.user?.lastName ?? '',
+                            ),
+                          ]),
+                          confirmText: 'Kaydet');
+                    },
+                  ),
+                ListenableBuilder(
+                  listenable: _themeManager,
+                  builder: (context, child) => ListTile(
+                    title: const Text('Karanlık Mod'),
+                    trailing: Switch.adaptive(
+                      value: _themeManager.themeMode != ThemeMode.light,
+                      onChanged: (value) {
+                        _themeManager.toggleTheme(
+                            _themeManager.themeMode == ThemeMode.light
+                                ? ThemeMode.dark
+                                : ThemeMode.light);
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            ListenableBuilder(
-              listenable: _localizationManager,
-              builder: (context, child) => ListTile(
-                title: const Text('Dil'),
-                trailing: DropdownButton(
-                  isDense: true,
-                  underline: const SizedBox.shrink(),
-                  value: _localizationManager.currentLanguage,
-                  items: Language.values
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e.name),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null &&
-                        value != _localizationManager.currentLanguage) {
-                      _localizationManager.changeLanguage(value);
-                    }
-                  },
+                ListenableBuilder(
+                  listenable: _localizationManager,
+                  builder: (context, child) => ListTile(
+                    title: const Text('Dil'),
+                    trailing: DropdownButton(
+                      isDense: true,
+                      underline: const SizedBox.shrink(),
+                      value: _localizationManager.currentLanguage,
+                      items: Language.values
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e.name),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null &&
+                            value != _localizationManager.currentLanguage) {
+                          _localizationManager.changeLanguage(value);
+                        }
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  messenger.showSnackBar(
-                      message: AppLocalizations.of(context)!.greeting);
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.showSnackbar,
-                ))
-          ],
+                ElevatedButton(
+                    onPressed: () {
+                      messenger.showSnackBar(
+                          message: AppLocalizations.of(context)!.greeting);
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.showSnackbar,
+                    ))
+              ],
+            );
+          },
         ),
       ),
     );

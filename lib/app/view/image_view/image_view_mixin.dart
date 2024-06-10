@@ -10,16 +10,9 @@ mixin ImageViewMixin on ImageScreenViewModel {
           onPressed: () async {
             // Pick an image and send it
             final imageBytes = await pickImage();
-            await imageService.sendImage(imageBytes);
+            await imageService.processImage(imageBytes);
           },
-          child: const Text('Send Image'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            // Receive images
-            await imageService.receiveImages();
-          },
-          child: const Text('Receive Images'),
+          child: const Text('Process Image'),
         ),
       ],
     );

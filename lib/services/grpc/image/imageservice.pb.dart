@@ -11,30 +11,34 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class ImageRequest extends $pb.GeneratedMessage {
-  factory ImageRequest({
-    $fixnum.Int64? senderId,
+class ImageGrpcModel extends $pb.GeneratedMessage {
+  factory ImageGrpcModel({
     $core.List<$core.int>? image,
+    $core.int? id,
+    $core.int? userid,
   }) {
     final $result = create();
-    if (senderId != null) {
-      $result.senderId = senderId;
-    }
     if (image != null) {
       $result.image = image;
     }
+    if (id != null) {
+      $result.id = id;
+    }
+    if (userid != null) {
+      $result.userid = userid;
+    }
     return $result;
   }
-  ImageRequest._() : super();
-  factory ImageRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ImageRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ImageGrpcModel._() : super();
+  factory ImageGrpcModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ImageGrpcModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ImageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'imageservice'), createEmptyInstance: create)
-    ..aInt64(1, _omitFieldNames ? '' : 'senderId')
-    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'image', $pb.PbFieldType.OY)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ImageGrpcModel', package: const $pb.PackageName(_omitMessageNames ? '' : 'imageservice'), createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'image', $pb.PbFieldType.OY)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'id', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'userid', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -42,104 +46,49 @@ class ImageRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ImageRequest clone() => ImageRequest()..mergeFromMessage(this);
+  ImageGrpcModel clone() => ImageGrpcModel()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ImageRequest copyWith(void Function(ImageRequest) updates) => super.copyWith((message) => updates(message as ImageRequest)) as ImageRequest;
+  ImageGrpcModel copyWith(void Function(ImageGrpcModel) updates) => super.copyWith((message) => updates(message as ImageGrpcModel)) as ImageGrpcModel;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static ImageRequest create() => ImageRequest._();
-  ImageRequest createEmptyInstance() => create();
-  static $pb.PbList<ImageRequest> createRepeated() => $pb.PbList<ImageRequest>();
+  static ImageGrpcModel create() => ImageGrpcModel._();
+  ImageGrpcModel createEmptyInstance() => create();
+  static $pb.PbList<ImageGrpcModel> createRepeated() => $pb.PbList<ImageGrpcModel>();
   @$core.pragma('dart2js:noInline')
-  static ImageRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ImageRequest>(create);
-  static ImageRequest? _defaultInstance;
+  static ImageGrpcModel getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ImageGrpcModel>(create);
+  static ImageGrpcModel? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get senderId => $_getI64(0);
+  $core.List<$core.int> get image => $_getN(0);
   @$pb.TagNumber(1)
-  set senderId($fixnum.Int64 v) { $_setInt64(0, v); }
+  set image($core.List<$core.int> v) { $_setBytes(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasSenderId() => $_has(0);
+  $core.bool hasImage() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSenderId() => clearField(1);
+  void clearImage() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get image => $_getN(1);
+  $core.int get id => $_getIZ(1);
   @$pb.TagNumber(2)
-  set image($core.List<$core.int> v) { $_setBytes(1, v); }
+  set id($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasImage() => $_has(1);
+  $core.bool hasId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearImage() => clearField(2);
-}
+  void clearId() => clearField(2);
 
-class ImageResponse extends $pb.GeneratedMessage {
-  factory ImageResponse({
-    $fixnum.Int64? senderId,
-    $core.List<$core.int>? image,
-  }) {
-    final $result = create();
-    if (senderId != null) {
-      $result.senderId = senderId;
-    }
-    if (image != null) {
-      $result.image = image;
-    }
-    return $result;
-  }
-  ImageResponse._() : super();
-  factory ImageResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ImageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ImageResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'imageservice'), createEmptyInstance: create)
-    ..aInt64(1, _omitFieldNames ? '' : 'senderId')
-    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'image', $pb.PbFieldType.OY)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ImageResponse clone() => ImageResponse()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ImageResponse copyWith(void Function(ImageResponse) updates) => super.copyWith((message) => updates(message as ImageResponse)) as ImageResponse;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static ImageResponse create() => ImageResponse._();
-  ImageResponse createEmptyInstance() => create();
-  static $pb.PbList<ImageResponse> createRepeated() => $pb.PbList<ImageResponse>();
-  @$core.pragma('dart2js:noInline')
-  static ImageResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ImageResponse>(create);
-  static ImageResponse? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $fixnum.Int64 get senderId => $_getI64(0);
-  @$pb.TagNumber(1)
-  set senderId($fixnum.Int64 v) { $_setInt64(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSenderId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSenderId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.List<$core.int> get image => $_getN(1);
-  @$pb.TagNumber(2)
-  set image($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasImage() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearImage() => clearField(2);
+  @$pb.TagNumber(3)
+  $core.int get userid => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set userid($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasUserid() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserid() => clearField(3);
 }
 
 

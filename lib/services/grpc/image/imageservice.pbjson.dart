@@ -13,30 +13,18 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use imageRequestDescriptor instead')
-const ImageRequest$json = {
-  '1': 'ImageRequest',
+@$core.Deprecated('Use imageGrpcModelDescriptor instead')
+const ImageGrpcModel$json = {
+  '1': 'ImageGrpcModel',
   '2': [
-    {'1': 'sender_id', '3': 1, '4': 1, '5': 3, '10': 'senderId'},
-    {'1': 'image', '3': 2, '4': 1, '5': 12, '10': 'image'},
+    {'1': 'image', '3': 1, '4': 1, '5': 12, '10': 'image'},
+    {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    {'1': 'userid', '3': 3, '4': 1, '5': 5, '10': 'userid'},
   ],
 };
 
-/// Descriptor for `ImageRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List imageRequestDescriptor = $convert.base64Decode(
-    'CgxJbWFnZVJlcXVlc3QSGwoJc2VuZGVyX2lkGAEgASgDUghzZW5kZXJJZBIUCgVpbWFnZRgCIA'
-    'EoDFIFaW1hZ2U=');
+/// Descriptor for `ImageGrpcModel`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List imageGrpcModelDescriptor = $convert.base64Decode(
+    'Cg5JbWFnZUdycGNNb2RlbBIUCgVpbWFnZRgBIAEoDFIFaW1hZ2USDgoCaWQYAiABKAVSAmlkEh'
+    'YKBnVzZXJpZBgDIAEoBVIGdXNlcmlk');
 
-@$core.Deprecated('Use imageResponseDescriptor instead')
-const ImageResponse$json = {
-  '1': 'ImageResponse',
-  '2': [
-    {'1': 'sender_id', '3': 1, '4': 1, '5': 3, '10': 'senderId'},
-    {'1': 'image', '3': 2, '4': 1, '5': 12, '10': 'image'},
-  ],
-};
-
-/// Descriptor for `ImageResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List imageResponseDescriptor = $convert.base64Decode(
-    'Cg1JbWFnZVJlc3BvbnNlEhsKCXNlbmRlcl9pZBgBIAEoA1IIc2VuZGVySWQSFAoFaW1hZ2UYAi'
-    'ABKAxSBWltYWdl');

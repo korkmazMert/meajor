@@ -1,3 +1,5 @@
+import 'package:alisatiyor/app/view/cubit/image_cubit/image_cubit.dart';
+import 'package:alisatiyor/app/view/home_view/widgets/recent_activites.dart';
 import 'package:alisatiyor/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -24,7 +26,7 @@ mixin HomeViewMixin {
     );
   }
 
-  Widget homeViewBody(BuildContext context) {
+  Widget homeViewBody(BuildContext context, ImageState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,10 +35,11 @@ mixin HomeViewMixin {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Divider(endIndent: context.width * 0.05),
-        //latest activities
-        // const RecentActivities(),
+        // latest activities
+        const RecentActivities(),
         // if there is no activity
-        Lottie.asset('assets/lottie/nothing_lottie.json'),
+        if (state.state != ImageStates.loaded)
+          Lottie.asset('assets/lottie/nothing_lottie.json'),
       ],
     );
   }

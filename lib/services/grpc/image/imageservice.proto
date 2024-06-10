@@ -3,16 +3,11 @@ syntax = "proto3";
 package imageservice;
 
 service ImageService {
-  rpc SendImage(ImageRequest) returns (ImageResponse);
-  rpc ReceiveImage(ImageRequest) returns (ImageResponse);
+  rpc ProcessImage(ImageGrpcModel) returns (ImageGrpcModel);
 }
 
-message ImageRequest {
-  int64 sender_id = 1;
-  bytes image = 2;
-}
-
-message ImageResponse {
-  int64 sender_id = 1;
-  bytes image = 2;
+message ImageGrpcModel {
+  bytes image = 1;
+  int32 id = 2;
+  int32 userid = 3;
 }

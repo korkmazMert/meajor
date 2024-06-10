@@ -2,6 +2,7 @@ import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/app/view/onboarding_view/dot_indicator.dart';
 import 'package:alisatiyor/app/view/onboarding_view/onboarding_body.dart';
 import 'package:alisatiyor/core/duration/app_duration.dart';
+import 'package:alisatiyor/services/local/hive_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,13 @@ class OnboardingView extends StatefulWidget {
 class OnboardingViewState extends State<OnboardingView> {
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
   final PageController _pageController = PageController();
+  @override
+  void initState() {
+    super.initState();
+    if (HiveService.instance.isFirstTime == false) {
+      context.router.replace(const HomeRoute());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,8 @@ class OnboardingViewState extends State<OnboardingView> {
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     if (value == 2) {
+                      HiveService.instance.setOpenedForFirstTime();
+
                       context.router.replace(const HomeRoute());
                     } else {
                       _pageController.animateToPage(value + 1,

@@ -2,10 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:alisatiyor/core/service/service_constant.dart';
 import 'package:alisatiyor/services/grpc/image/imageservice.pb.dart';
 import 'package:alisatiyor/services/image/image_client.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,27 +13,24 @@ class ImageService {
     _instance ??= ImageService._(client);
     return _instance!;
   }
+
   ImageService._(this._client);
   late final ImageClient _client;
-  late ImageRequest request = ImageRequest()
-    ..senderId = Int64(ServiceConstants.senderId);
+  late ImageGrpcModel request = ImageGrpcModel();
 
   ValueNotifier<List<File>> images = ValueNotifier<List<File>>([]);
   static ImageService? _instance;
 
-  Future<void> sendImage(List<int> imageBytes) async {
+  Future<void> processImage(List<int> imageBytes) async {
     try {
-      request.image = imageBytes;
-      await _client.sendImage(request);
-    } catch (e) {
-      log('Caught error: $e');
-    }
-  }
-
-  Future<void> receiveImages() async {
-    try {
-      final image = await _client.receiveImage(request);
+      request
+        ..image = imageBytes
+        ..userid = 2;
+      final image = await _client.processImage(request);
       final bytes = Uint8List.fromList(image.image);
+      log('Received image: $image');
+      print('Received image: ${image.id}');
+      print('request.userid: ${image.userid}');
 
       // Get the temporary directory of the app.
       final directory = await getTemporaryDirectory();

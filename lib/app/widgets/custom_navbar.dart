@@ -1,5 +1,7 @@
+import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomNavbar extends StatelessWidget {
   const CustomNavbar({required this.tabsRouter, super.key});
@@ -9,7 +11,12 @@ class CustomNavbar extends StatelessWidget {
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       selectedIndex: tabsRouter.activeIndex,
-      onDestinationSelected: tabsRouter.setActiveIndex,
+      onDestinationSelected: (value) {
+        tabsRouter.setActiveIndex(value);
+        if (value == 1) {
+          context.read<GeneralCubit>().getAccountInfo();
+        }
+      },
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home),

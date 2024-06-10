@@ -7,11 +7,15 @@ class CustomTextFormField extends StatefulWidget {
     this.obscureText = false,
     super.key,
     this.controller,
+    this.validator,
+    this.hintText,
   });
   final String labelText;
+  final String? hintText;
   final TextInputType keyboardType;
   final TextEditingController? controller;
   final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -32,11 +36,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         valueListenable: obscureText,
         builder: (context, value, child) {
           return TextFormField(
+            validator: widget.validator,
             controller: widget.controller,
             keyboardType: widget.keyboardType,
             obscureText: obscureText.value,
             decoration: InputDecoration(
               isDense: true,
+              hintText: widget.hintText,
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),

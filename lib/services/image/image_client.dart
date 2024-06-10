@@ -15,12 +15,8 @@ class ImageClient {
   late ClientChannel channel;
   late ImageServiceClient stub;
 
-  Future<ImageResponse> sendImage(ImageRequest request) {
-    return stub.sendImage(request);
-  }
-
-  Future<ImageResponse> receiveImage(ImageRequest request) {
-    return stub.receiveImage(request);
+  Future<ImageGrpcModel> processImage(ImageGrpcModel request) {
+    return stub.processImage(request);
   }
 
   Future<void> shutdown() async {

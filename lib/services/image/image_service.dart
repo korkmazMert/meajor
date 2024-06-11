@@ -29,8 +29,8 @@ class ImageService {
       final image = await _client.processImage(request);
       final bytes = Uint8List.fromList(image.image);
       log('Received image: $image');
-      print('Received image: ${image.id}');
-      print('request.userid: ${image.userid}');
+      log('Received imageid: ${image.id}');
+      log('request.userid: ${image.userid}');
 
       // Get the temporary directory of the app.
       final directory = await getTemporaryDirectory();

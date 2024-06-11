@@ -38,7 +38,8 @@ mixin HomeViewMixin {
         // latest activities
         const RecentActivities(),
         // if there is no activity
-        if (state.state != ImageStates.loaded)
+        if ((state.userImages?.images == null) ||
+            (state.userImages?.images?.isEmpty ?? true))
           Lottie.asset('assets/lottie/nothing_lottie.json'),
       ],
     );

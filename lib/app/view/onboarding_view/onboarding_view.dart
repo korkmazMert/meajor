@@ -22,7 +22,7 @@ class OnboardingViewState extends State<OnboardingView> {
   void initState() {
     super.initState();
     if (HiveService.instance.isFirstTime == false) {
-      context.router.replace(const HomeRoute());
+      context.router.replace(HomeRoute());
     }
   }
 
@@ -46,7 +46,7 @@ class OnboardingViewState extends State<OnboardingView> {
                     if (value == 2) {
                       HiveService.instance.setOpenedForFirstTime();
 
-                      context.router.replace(const HomeRoute());
+                      context.router.replace(HomeRoute());
                     } else {
                       _pageController.animateToPage(value + 1,
                           duration: AppDuration.defaultDuration,

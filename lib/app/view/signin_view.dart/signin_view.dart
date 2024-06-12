@@ -8,7 +8,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 @RoutePage()
 class SigninView extends StatelessWidget {
@@ -25,7 +24,7 @@ class SigninView extends StatelessWidget {
         listener: (context, state) {
           // redirect to home page if user signed in
           if (state.state == GeneralStates.signedin) {
-            context.router.push(const HomeRoute());
+            context.router.push(HomeRoute());
           }
         },
         builder: (context, state) => Center(

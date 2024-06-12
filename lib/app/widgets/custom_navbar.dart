@@ -8,25 +8,29 @@ class CustomNavbar extends StatelessWidget {
   final TabsRouter tabsRouter;
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
-      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      selectedIndex: tabsRouter.activeIndex,
-      onDestinationSelected: (value) {
-        tabsRouter.setActiveIndex(value);
-        if (value == 1) {
-          context.read<GeneralCubit>().getAccountInfo();
-        }
+    return BlocBuilder<GeneralCubit, GeneralState>(
+      builder: (context, generalState) {
+        return NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          selectedIndex: tabsRouter.activeIndex,
+          onDestinationSelected: (value) {
+            tabsRouter.setActiveIndex(value);
+            if (value == 1 && generalState.state == GeneralStates.signedin) {
+              context.read<GeneralCubit>().getAccountInfo();
+            }
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        );
       },
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
     );
   }
 }

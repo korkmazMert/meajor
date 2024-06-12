@@ -12,35 +12,33 @@
 import 'dart:async' as $async;
 import 'dart:core' as $core;
 
+import 'package:alisatiyor/services/grpc/image/imageservice.pb.dart' as $0;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
-
-import 'imageservice.pb.dart' as $0;
 
 export 'imageservice.pb.dart';
 
 @$pb.GrpcServiceName('imageservice.ImageService')
 class ImageServiceClient extends $grpc.Client {
-  static final _$processImage = $grpc.ClientMethod<$0.ImageGrpcModel, $0.ImageGrpcModel>(
-      '/imageservice.ImageService/ProcessImage',
-      ($0.ImageGrpcModel value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.ImageGrpcModel.fromBuffer(value));
-
   ImageServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
-      : super(channel, options: options,
-        interceptors: interceptors);
+      : super(channel, options: options, interceptors: interceptors);
+  static final _$processImage =
+      $grpc.ClientMethod<$0.ImageGrpcModel, $0.ImageGrpcModel>(
+          '/imageservice.ImageService/ProcessImage',
+          ($0.ImageGrpcModel value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.ImageGrpcModel.fromBuffer(value));
 
-  $grpc.ResponseFuture<$0.ImageGrpcModel> processImage($0.ImageGrpcModel request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$0.ImageGrpcModel> processImage(
+      $0.ImageGrpcModel request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$processImage, request, options: options);
   }
 }
 
 @$pb.GrpcServiceName('imageservice.ImageService')
 abstract class ImageServiceBase extends $grpc.Service {
-  $core.String get $name => 'imageservice.ImageService';
-
   ImageServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.ImageGrpcModel, $0.ImageGrpcModel>(
         'ProcessImage',
@@ -50,10 +48,13 @@ abstract class ImageServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) => $0.ImageGrpcModel.fromBuffer(value),
         ($0.ImageGrpcModel value) => value.writeToBuffer()));
   }
+  $core.String get $name => 'imageservice.ImageService';
 
-  $async.Future<$0.ImageGrpcModel> processImage_Pre($grpc.ServiceCall call, $async.Future<$0.ImageGrpcModel> request) async {
+  $async.Future<$0.ImageGrpcModel> processImage_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.ImageGrpcModel> request) async {
     return processImage(call, await request);
   }
 
-  $async.Future<$0.ImageGrpcModel> processImage($grpc.ServiceCall call, $0.ImageGrpcModel request);
+  $async.Future<$0.ImageGrpcModel> processImage(
+      $grpc.ServiceCall call, $0.ImageGrpcModel request);
 }

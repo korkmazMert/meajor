@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:alisatiyor/core/service/service_constant.dart';
 import 'package:alisatiyor/services/grpc/image/imageservice.pb.dart';
 import 'package:alisatiyor/services/image/image_client.dart';
 import 'package:flutter/material.dart';
@@ -9,17 +10,13 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ImageService {
-  factory ImageService({required ImageClient client}) {
-    _instance ??= ImageService._(client);
-    return _instance!;
-  }
-
-  ImageService._(this._client);
-  late final ImageClient _client;
+  ImageService._();
+  static ImageService instance = ImageService._();
+  final ImageClient _client =
+      ImageClient(ServiceConstants.url, ServiceConstants.port);
   late ImageGrpcModel request = ImageGrpcModel();
 
   ValueNotifier<List<File>> images = ValueNotifier<List<File>>([]);
-  static ImageService? _instance;
 
   Future<void> processImage(List<int> imageBytes) async {
     try {
@@ -28,7 +25,7 @@ class ImageService {
         ..userid = 2;
       final image = await _client.processImage(request);
       final bytes = Uint8List.fromList(image.image);
-      log('Received image: $image');
+      // log('Received image: $image');
       log('Received imageid: ${image.id}');
       log('request.userid: ${image.userid}');
 
@@ -53,5 +50,9 @@ class ImageService {
     } catch (e) {
       log('Caught error: $e');
     }
+  }
+
+  Future<void> imageClientShutdown() async {
+    await _client.shutdown();
   }
 }

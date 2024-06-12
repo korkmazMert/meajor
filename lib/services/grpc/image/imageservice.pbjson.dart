@@ -27,4 +27,3 @@ const ImageGrpcModel$json = {
 final $typed_data.Uint8List imageGrpcModelDescriptor = $convert.base64Decode(
     'Cg5JbWFnZUdycGNNb2RlbBIUCgVpbWFnZRgBIAEoDFIFaW1hZ2USDgoCaWQYAiABKAVSAmlkEh'
     'YKBnVzZXJpZBgDIAEoBVIGdXNlcmlk');
-

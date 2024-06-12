@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:alisatiyor/models/account_info/account_info.dart';
 import 'package:alisatiyor/models/base_model/base_model.dart';
+import 'package:alisatiyor/models/get_control_id/get_control_id.dart';
 import 'package:alisatiyor/models/signin_response/signin_response.dart';
 import 'package:alisatiyor/services/network/network_manager.dart';
 import 'package:dio/dio.dart';
@@ -17,6 +18,17 @@ class AuthService {
   // Future<void> refreshToken(String refreshToken) async {
   //   return networkManager.refreshJwtToken(refreshToken);
   // }
+  Future<GetControlId> getControlId() async {
+    try {
+      final response = await dio.get(
+        'api/get_control_id/',
+      );
+      return GetControlId.fromJson(response.data);
+    } catch (e) {
+      log('error in get_control_id service: $e');
+      rethrow;
+    }
+  }
 
   Future<SigninResponse> signin(String email, String password) async {
     try {

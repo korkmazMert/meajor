@@ -9,7 +9,7 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 const String baseUrl = 'http://10.0.2.2:8000/';
-
+const String localhost = 'http://127.0.0.1:8000/';
 final BaseOptions baseOptions = BaseOptions(
   baseUrl: baseUrl,
   connectTimeout: const Duration(seconds: 60),

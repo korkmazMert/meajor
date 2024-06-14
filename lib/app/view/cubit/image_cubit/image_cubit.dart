@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:alisatiyor/models/user_images/user_images.dart';
 import 'package:alisatiyor/services/network/image/image_network_service.dart';
 import 'package:bloc/bloc.dart';
@@ -17,7 +19,7 @@ class ImageCubit extends Cubit<ImageState> {
     loading();
     try {
       final userImagesResponse = await imageService.getUserImages();
-
+      log('userImagesResponse: $userImagesResponse');
       emit(state.copyWith(
         userImages: userImagesResponse,
         result: 'success',

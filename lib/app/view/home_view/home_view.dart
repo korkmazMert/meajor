@@ -11,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 final class HomeView extends StatelessWidget with HomeViewMixin {
   HomeView({super.key});
-  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,32 +24,27 @@ final class HomeView extends StatelessWidget with HomeViewMixin {
       ),
       body: BlocBuilder<ImageCubit, ImageState>(
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Center(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if ((state.userImages?.images == null) ||
-                    (state.userImages?.images?.isEmpty ?? true))
+          return RefreshIndicator.adaptive(
+            onRefresh: () async {
+              await context.read<ImageCubit>().getUserImages();
+            },
+            child: SingleChildScrollView(
+              child: Center(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if ((state.userImages?.images == null) ||
+                      (state.userImages?.images?.isEmpty ?? true))
+                    Padding(
+                        padding: const PagePadding.allLow(),
+                        child: homeViewHeader(context)),
                   Padding(
-                      padding: const PagePadding.allLow(),
-                      child: homeViewHeader(context)),
-                Padding(
-                  padding: const PagePadding.allLow(),
-                  child: homeViewBody(context, state),
-                ),
-                CustomTextFormField(
-                  labelText: 'sendmessage',
-                  controller: controller,
-                ),
-                CustomTextButton(
-                  label: 'send',
-                  onPressed: () {
-                    WebsocketManager.sendMessage(controller.text);
-                  },
-                )
-              ],
-            )),
+                    padding: const PagePadding.allLow(),
+                    child: homeViewBody(context, state),
+                  ),
+                ],
+              )),
+            ),
           );
         },
       ),

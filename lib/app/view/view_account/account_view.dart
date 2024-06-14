@@ -101,6 +101,24 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                     ),
                   ),
                 ),
+                if (state.state == GeneralStates.signedin &&
+                    state.accountInfo != null)
+                  ListTile(
+                    title: const Text('Çıkış Yap'),
+                    trailing: const Icon(Icons.logout),
+                    onTap: () {
+                      CustomAlertDialog.showAlertDialog(
+                          context: context,
+                          title: const Text('Çıkış Yap'),
+                          content: const Text(
+                              'Çıkış yapmak istediğinize emin misiniz?'),
+                          confirmText: 'Çıkış Yap',
+                          onConfirm: () {
+                            context.read<GeneralCubit>().signout();
+                            context.router.maybePop();
+                          });
+                    },
+                  ),
                 ElevatedButton(
                     onPressed: () {
                       messenger.showSnackBar(

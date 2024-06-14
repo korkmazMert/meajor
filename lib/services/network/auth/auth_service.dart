@@ -69,8 +69,7 @@ class AuthService {
     }
   }
 
-  Future<BaseModel> signout(String email, String firstName, String lastName,
-      String password, String password2) async {
+  Future<BaseModel> signout() async {
     try {
       final response = await dio.get(
         'api/signout/',

@@ -23,8 +23,9 @@ class SigninView extends StatelessWidget {
       body: BlocConsumer<GeneralCubit, GeneralState>(
         listener: (context, state) {
           // redirect to home page if user signed in
-          if (state.state == GeneralStates.signedin) {
-            context.router.push(HomeRoute());
+          if (state.state == GeneralStates.signedin &&
+              state.message == 'Login successful') {
+            context.router.replace(HomeRoute());
           }
         },
         builder: (context, state) => Center(

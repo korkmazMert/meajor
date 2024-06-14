@@ -18,7 +18,11 @@ class GeneralCubit extends Cubit<GeneralState> {
     try {
       final authResult = await authService.signin(email, password);
       if (authResult.result == 'success') {
-        emit(state.copyWith(state: GeneralStates.signedin));
+        emit(state.copyWith(
+          state: GeneralStates.signedin,
+          result: authResult.result,
+          message: authResult.message,
+        ));
         await getAccountInfo();
       } else {
         emit(state.copyWith(
@@ -42,12 +46,42 @@ class GeneralCubit extends Cubit<GeneralState> {
       final accountInfoResponse = await authService.getAccountInfo();
       if (accountInfoResponse.result == 'success') {
         emit(state.copyWith(
-            state: GeneralStates.signedin, accountInfo: accountInfoResponse));
+          state: GeneralStates.signedin,
+          accountInfo: accountInfoResponse,
+          message: accountInfoResponse.message,
+          result: accountInfoResponse.result,
+        ));
       } else {
         emit(state.copyWith(
           state: GeneralStates.error,
           result: accountInfoResponse.result,
           message: accountInfoResponse.message,
+        ));
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        state: GeneralStates.error,
+        result: 'error',
+        message: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> signout() async {
+    loading();
+    try {
+      final signoutResult = await authService.signout();
+      if (signoutResult.result == 'success') {
+        emit(state.copyWith(
+          state: GeneralStates.signedout,
+          result: signoutResult.result,
+          message: signoutResult.message,
+        ));
+      } else {
+        emit(state.copyWith(
+          state: GeneralStates.error,
+          result: signoutResult.result,
+          message: signoutResult.message,
         ));
       }
     } catch (e) {

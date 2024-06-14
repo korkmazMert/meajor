@@ -1,4 +1,5 @@
 import 'package:alisatiyor/app/view/cubit/image_cubit/image_cubit.dart';
+import 'package:alisatiyor/services/network/network_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,12 +17,29 @@ class RecentActivities extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: state.userImages?.images?.length ?? 0,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text('İşlem $index'),
-                subtitle: Text('Açıklama $index'),
-                trailing: const Text('₺ 100.00'),
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: state.userImages?.images?.length ?? 0,
+                itemBuilder: (context, index) {
+                  var imageUrl =
+                      state.userImages?.images?[index].processedImage ?? '';
+                  // Remove leading slash if present
+                  if (imageUrl.startsWith('/')) {
+                    imageUrl = imageUrl.substring(1);
+                  }
+                  return Image.network(
+                    '$baseUrl$imageUrl',
+                    fit: BoxFit.cover,
+                  );
+                },
               );
             },
           );

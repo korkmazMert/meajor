@@ -37,6 +37,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: HomeView(key: args.key),
       );
     },
+    ImageDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<ImageDetailRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ImageDetailView(
+          imageUrl: args.imageUrl,
+          heroTag: args.heroTag,
+          key: args.key,
+        ),
+      );
+    },
     ImageRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -56,9 +67,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SaveImageRoute.name: (routeData) {
+      final args = routeData.argsAs<SaveImageRouteArgs>(
+          orElse: () => const SaveImageRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SaveImageView(),
+        child: SaveImageView(key: args.key),
       );
     },
     SigninRoute.name: (routeData) {
@@ -150,6 +163,49 @@ class HomeRouteArgs {
 }
 
 /// generated route for
+/// [ImageDetailView]
+class ImageDetailRoute extends PageRouteInfo<ImageDetailRouteArgs> {
+  ImageDetailRoute({
+    required String imageUrl,
+    required String heroTag,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ImageDetailRoute.name,
+          args: ImageDetailRouteArgs(
+            imageUrl: imageUrl,
+            heroTag: heroTag,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ImageDetailRoute';
+
+  static const PageInfo<ImageDetailRouteArgs> page =
+      PageInfo<ImageDetailRouteArgs>(name);
+}
+
+class ImageDetailRouteArgs {
+  const ImageDetailRouteArgs({
+    required this.imageUrl,
+    required this.heroTag,
+    this.key,
+  });
+
+  final String imageUrl;
+
+  final String heroTag;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ImageDetailRouteArgs{imageUrl: $imageUrl, heroTag: $heroTag, key: $key}';
+  }
+}
+
+/// generated route for
 /// [ImageView]
 class ImageRoute extends PageRouteInfo<void> {
   const ImageRoute({List<PageRouteInfo>? children})
@@ -193,16 +249,31 @@ class OnboardingRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SaveImageView]
-class SaveImageRoute extends PageRouteInfo<void> {
-  const SaveImageRoute({List<PageRouteInfo>? children})
-      : super(
+class SaveImageRoute extends PageRouteInfo<SaveImageRouteArgs> {
+  SaveImageRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SaveImageRoute.name,
+          args: SaveImageRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SaveImageRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SaveImageRouteArgs> page =
+      PageInfo<SaveImageRouteArgs>(name);
+}
+
+class SaveImageRouteArgs {
+  const SaveImageRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SaveImageRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

@@ -46,7 +46,7 @@ class _CustomScaffoldViewState extends State<CustomScaffoldView> {
                         await imageService.processImage(bytes);
                         if (imageService.images.value.isNotEmpty &&
                             context.mounted) {
-                          await context.router.push(const SaveImageRoute());
+                          await context.router.push(SaveImageRoute());
                         }
                       }
                     },

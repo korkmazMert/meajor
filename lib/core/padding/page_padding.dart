@@ -7,6 +7,9 @@ class PagePadding extends EdgeInsets {
       : super.symmetric(vertical: _paddingLow);
   const PagePadding.generalLow()
       : super.only(right: _paddingLow, left: _paddingLow, top: _paddingLow);
+  const PagePadding.symmetric(
+      {super.horizontal = _paddingLow, super.vertical = _paddingLow})
+      : super.symmetric();
   const PagePadding.allLow() : super.all(_paddingLow);
   const PagePadding.onlyLeftLow() : super.only(left: _paddingLow);
   const PagePadding.onlyBottomLow() : super.only(bottom: _paddingLow);

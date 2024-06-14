@@ -1,4 +1,5 @@
 import 'package:alisatiyor/app/view/home_view/home_view.dart';
+import 'package:alisatiyor/app/view/image_detail_view/image_detail_view.dart';
 import 'package:alisatiyor/app/view/image_view/image_view.dart';
 import 'package:alisatiyor/app/view/messages_view/messages_view.dart';
 import 'package:alisatiyor/app/view/onboarding_view/onboarding_view.dart';
@@ -22,6 +23,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: ImageRoute.page),
     AutoRoute(page: MessagesRoute.page),
     AutoRoute(page: SaveImageRoute.page),
+    AutoRoute(page: ImageDetailRoute.page),
     AutoRoute(page: CustomScaffoldRoute.page, children: [
       AutoRoute(page: HomeRoute.page, initial: true),
       AutoRoute(page: AccountRoute.page),

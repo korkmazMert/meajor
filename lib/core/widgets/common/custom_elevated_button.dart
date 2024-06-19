@@ -7,10 +7,12 @@ class CustomElevatedButton extends StatelessWidget {
     super.key,
     this.onPressed,
     this.width,
+    this.fontSize,
   });
   final void Function()? onPressed;
   final String label;
   final double? width;
+  final double? fontSize;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,7 +39,7 @@ class CustomElevatedButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall
-                  ?.copyWith(color: Colors.white))),
+                  ?.copyWith(color: Colors.white, fontSize: fontSize))),
     );
   }
 }

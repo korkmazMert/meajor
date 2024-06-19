@@ -13,6 +13,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:lottie/lottie.dart';
 
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  /// File path: assets/json/il-ilce.json
+  String get ilIlce => 'assets/json/il-ilce.json';
+
+  /// List of all assets
+  List<String> get values => [ilIlce];
+}
+
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
@@ -52,6 +62,7 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 }

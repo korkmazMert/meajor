@@ -86,3 +86,4 @@ flutter:
   assets:
     - assets/svg/
     - assets/lottie/
+    - assets/json/

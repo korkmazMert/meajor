@@ -54,6 +54,14 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ImageView(),
       );
     },
+    LiveSupportRoute.name: (routeData) {
+      final args = routeData.argsAs<LiveSupportRouteArgs>(
+          orElse: () => const LiveSupportRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: LiveSupportView(key: args.key),
+      );
+    },
     MessagesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -217,6 +225,35 @@ class ImageRoute extends PageRouteInfo<void> {
   static const String name = 'ImageRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [LiveSupportView]
+class LiveSupportRoute extends PageRouteInfo<LiveSupportRouteArgs> {
+  LiveSupportRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          LiveSupportRoute.name,
+          args: LiveSupportRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'LiveSupportRoute';
+
+  static const PageInfo<LiveSupportRouteArgs> page =
+      PageInfo<LiveSupportRouteArgs>(name);
+}
+
+class LiveSupportRouteArgs {
+  const LiveSupportRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LiveSupportRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

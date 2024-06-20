@@ -1,19 +1,22 @@
 import 'dart:io';
 
+import 'package:alisatiyor/app/view/cubit/image_cubit/image_cubit.dart';
 import 'package:alisatiyor/app/view/save_image_view/address_dropdown.dart';
 import 'package:alisatiyor/core/extensions/build_context_ext.dart';
 import 'package:alisatiyor/core/padding/page_padding.dart';
 import 'package:alisatiyor/core/widgets/common/custom_elevated_button.dart';
-import 'package:alisatiyor/core/widgets/common/custom_text_button.dart';
 import 'package:alisatiyor/core/widgets/form_field/custom_text_form_field.dart';
 import 'package:alisatiyor/services/image/image_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class SaveImageView extends StatelessWidget {
   SaveImageView({super.key});
   final ImageService imageService = ImageService.instance;
+  final GlobalKey<FormState> sizeFormKey = GlobalKey<FormState>();
+
   final GlobalKey<FormState> fromWhereDropdownFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> toWhereDropdownFormKey = GlobalKey<FormState>();
   final TextEditingController fromWhereCityController = TextEditingController();
@@ -22,6 +25,8 @@ class SaveImageView extends StatelessWidget {
   final TextEditingController toWhereCityController = TextEditingController();
   final TextEditingController toWhereDistrictController =
       TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController widthController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +40,32 @@ class SaveImageView extends StatelessWidget {
               padding: const PagePadding.allLow(),
               child: Column(
                 children: [
-                  const CustomTextFormField(labelText: 'Yükseklik'),
-                  const SizedBox(height: 5),
-                  const CustomTextFormField(labelText: 'Genişlik'),
-                  const SizedBox(height: 5),
-                  const Row(children: [Text('Nereden')]),
+                  Form(
+                      key: sizeFormKey,
+                      child: Column(
+                        children: [
+                          CustomTextFormField(
+                            labelText: 'Yükseklik',
+                            controller: heightController,
+                            validator: (p0) =>
+                                p0!.isEmpty ? 'Lütfen yükseklik giriniz' : null,
+                          ),
+                          const SizedBox(height: 5),
+                          CustomTextFormField(
+                            labelText: 'Genişlik',
+                            controller: widthController,
+                            validator: (p0) =>
+                                p0!.isEmpty ? 'Lütfen genişlik giriniz' : null,
+                          ),
+                          const SizedBox(height: 5),
+                        ],
+                      )),
+                  Row(children: [
+                    Text(
+                      'Nereden',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )
+                  ]),
                   const Divider(),
                   const SizedBox(height: 5),
                   AddressDropdown(
@@ -62,7 +88,12 @@ class SaveImageView extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 5),
-                  const Row(children: [Text('Nereye')]),
+                  Row(children: [
+                    Text(
+                      'Nereye',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )
+                  ]),
                   const Divider(),
                   AddressDropdown(
                     formKey: toWhereDropdownFormKey,
@@ -90,6 +121,21 @@ class SaveImageView extends StatelessWidget {
                         label: 'Fiyat Hesapla',
                         width: context.width * 0.3,
                         fontSize: 14,
+                        onPressed: () {
+                          if (sizeFormKey.currentState!.validate() &&
+                              fromWhereDropdownFormKey.currentState!
+                                  .validate() &&
+                              toWhereDropdownFormKey.currentState!.validate()) {
+                            context.read<ImageCubit>().saveImageToDb(
+                                image: imageService.images.value.first,
+                                height: int.parse(heightController.text),
+                                width: int.parse(widthController.text),
+                                fromWhere:
+                                    '${fromWhereDistrictController.text} , ${fromWhereCityController.text}',
+                                toWhere:
+                                    '${toWhereDistrictController.text} , ${toWhereCityController.text}');
+                          }
+                        },
                       )
                     ],
                   )

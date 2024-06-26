@@ -27,7 +27,7 @@ mixin _$GetCargoCost {
   @JsonKey(name: 'total_cost')
   double? get totalCost => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_model')
-  Image? get image => throw _privateConstructorUsedError;
+  UserImage? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,9 +45,9 @@ abstract class $GetCargoCostCopyWith<$Res> {
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
       @JsonKey(name: 'total_cost') double? totalCost,
-      @JsonKey(name: 'image_model') Image? image});
+      @JsonKey(name: 'image_model') UserImage? image});
 
-  $ImageCopyWith<$Res>? get image;
+  $UserImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -84,18 +84,18 @@ class _$GetCargoCostCopyWithImpl<$Res, $Val extends GetCargoCost>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as Image?,
+              as UserImage?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ImageCopyWith<$Res>? get image {
+  $UserImageCopyWith<$Res>? get image {
     if (_value.image == null) {
       return null;
     }
 
-    return $ImageCopyWith<$Res>(_value.image!, (value) {
+    return $UserImageCopyWith<$Res>(_value.image!, (value) {
       return _then(_value.copyWith(image: value) as $Val);
     });
   }
@@ -113,10 +113,10 @@ abstract class _$$GetCargoCostImplCopyWith<$Res>
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
       @JsonKey(name: 'total_cost') double? totalCost,
-      @JsonKey(name: 'image_model') Image? image});
+      @JsonKey(name: 'image_model') UserImage? image});
 
   @override
-  $ImageCopyWith<$Res>? get image;
+  $UserImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -151,7 +151,7 @@ class __$$GetCargoCostImplCopyWithImpl<$Res>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as Image?,
+              as UserImage?,
     ));
   }
 }
@@ -179,7 +179,7 @@ class _$GetCargoCostImpl implements _GetCargoCost {
   final double? totalCost;
   @override
   @JsonKey(name: 'image_model')
-  final Image? image;
+  final UserImage? image;
 
   @override
   String toString() {
@@ -219,10 +219,11 @@ class _$GetCargoCostImpl implements _GetCargoCost {
 
 abstract class _GetCargoCost implements GetCargoCost {
   const factory _GetCargoCost(
-      {@JsonKey(name: 'result') final String? result,
-      @JsonKey(name: 'message') final String? message,
-      @JsonKey(name: 'total_cost') final double? totalCost,
-      @JsonKey(name: 'image_model') final Image? image}) = _$GetCargoCostImpl;
+          {@JsonKey(name: 'result') final String? result,
+          @JsonKey(name: 'message') final String? message,
+          @JsonKey(name: 'total_cost') final double? totalCost,
+          @JsonKey(name: 'image_model') final UserImage? image}) =
+      _$GetCargoCostImpl;
 
   factory _GetCargoCost.fromJson(Map<String, dynamic> json) =
       _$GetCargoCostImpl.fromJson;
@@ -238,7 +239,7 @@ abstract class _GetCargoCost implements GetCargoCost {
   double? get totalCost;
   @override
   @JsonKey(name: 'image_model')
-  Image? get image;
+  UserImage? get image;
   @override
   @JsonKey(ignore: true)
   _$$GetCargoCostImplCopyWith<_$GetCargoCostImpl> get copyWith =>

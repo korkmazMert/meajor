@@ -13,7 +13,7 @@ _$GetCargoCostImpl _$$GetCargoCostImplFromJson(Map<String, dynamic> json) =>
       totalCost: (json['total_cost'] as num?)?.toDouble(),
       image: json['image_model'] == null
           ? null
-          : Image.fromJson(json['image_model'] as Map<String, dynamic>),
+          : UserImage.fromJson(json['image_model'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$GetCargoCostImplToJson(_$GetCargoCostImpl instance) =>

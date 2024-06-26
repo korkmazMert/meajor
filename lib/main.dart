@@ -1,6 +1,7 @@
 import 'package:alisatiyor/app/app.dart';
 import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
 import 'package:alisatiyor/app/view/cubit/image_cubit/image_cubit.dart';
+import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
 import 'package:alisatiyor/core/connection/connectivity_provider.dart';
 import 'package:alisatiyor/init/init.dart';
 import 'package:alisatiyor/services/websocket/websocket_manager.dart';
@@ -20,8 +21,9 @@ Future<void> main() async {
       create: (context) => ConnectivityProvider(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => GeneralCubit()),
+          BlocProvider(create: (context) => GeneralCubit()..initHive()),
           BlocProvider(create: (context) => ImageCubit()..getUserImages()),
+          BlocProvider(create: (context) => MessagesCubit()),
         ],
         child: const App(),
       ),

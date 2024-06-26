@@ -9,6 +9,7 @@ import 'package:alisatiyor/app/view/signin_view.dart/signin_view.dart';
 import 'package:alisatiyor/app/view/signup_view/signup_view.dart';
 import 'package:alisatiyor/app/view/view_account/account_view.dart';
 import 'package:alisatiyor/app/widgets/custom_scaffold_widget.dart';
+import 'package:alisatiyor/models/user_images/user_images.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 

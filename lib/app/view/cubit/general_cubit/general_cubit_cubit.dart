@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:alisatiyor/models/account_info/account_info.dart';
+import 'package:alisatiyor/services/local/hive_service.dart';
 import 'package:alisatiyor/services/network/auth/auth_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -8,6 +11,15 @@ part 'general_cubit_state.dart';
 class GeneralCubit extends Cubit<GeneralState> {
   GeneralCubit() : super(const GeneralState());
   AuthService authService = AuthService.instance;
+  HiveService _hiveService = HiveService.instance;
+  Future<void> initHive() async {
+    final isSignedin = await _hiveService.getDataFromBox(
+        BoxNames.isSignedin.name, BoxNames.isSignedin.name);
+    log('is signed in: $isSignedin');
+    if (isSignedin == true) {
+      emit(state.copyWith(state: GeneralStates.signedin));
+    }
+  }
 
   void loading() {
     emit(state.copyWith(state: GeneralStates.loading));
@@ -23,6 +35,8 @@ class GeneralCubit extends Cubit<GeneralState> {
           result: authResult.result,
           message: authResult.message,
         ));
+        await _hiveService.writeDataToBox(
+            BoxNames.isSignedin.name, BoxNames.isSignedin.name, true);
         await getAccountInfo();
       } else {
         emit(state.copyWith(
@@ -77,6 +91,8 @@ class GeneralCubit extends Cubit<GeneralState> {
           result: signoutResult.result,
           message: signoutResult.message,
         ));
+        await _hiveService.writeDataToBox(
+            BoxNames.isSignedin.name, BoxNames.isSignedin.name, false);
       } else {
         emit(state.copyWith(
           state: GeneralStates.error,

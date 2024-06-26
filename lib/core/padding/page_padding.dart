@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PagePadding extends EdgeInsets {
-  const PagePadding.horizontalSymmetricLow()
-      : super.symmetric(horizontal: _paddingLow);
-  const PagePadding.verticalSymmetricLow()
-      : super.symmetric(vertical: _paddingLow);
+  const PagePadding.horizontalLow() : super.symmetric(horizontal: _paddingLow);
+  const PagePadding.verticalLow() : super.symmetric(vertical: _paddingLow);
   const PagePadding.generalLow()
       : super.only(right: _paddingLow, left: _paddingLow, top: _paddingLow);
   const PagePadding.symmetric(

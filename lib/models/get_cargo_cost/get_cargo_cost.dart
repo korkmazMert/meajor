@@ -1,4 +1,4 @@
-import 'package:alisatiyor/models/save_image_model/save_image_model.dart';
+import 'package:alisatiyor/models/user_images/user_images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'get_cargo_cost.freezed.dart';
 part 'get_cargo_cost.g.dart';
@@ -9,7 +9,7 @@ class GetCargoCost with _$GetCargoCost {
     @JsonKey(name: 'result') String? result,
     @JsonKey(name: 'message') String? message,
     @JsonKey(name: 'total_cost') double? totalCost,
-    @JsonKey(name: 'image_model') Image? image,
+    @JsonKey(name: 'image_model') UserImage? image,
   }) = _GetCargoCost;
   factory GetCargoCost.fromJson(Map<String, dynamic> json) =>
       _$GetCargoCostFromJson(json);

@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:alisatiyor/models/message_model/message_model.dart';
 import 'package:alisatiyor/services/network/auth/auth_service.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+typedef MessageCallback = void Function(MessageModel message);
 
 class WebsocketManager {
   factory WebsocketManager() => _instance;
@@ -21,19 +24,64 @@ class WebsocketManager {
         channel = WebSocketChannel.connect(wsUrl);
 
         await channel.ready;
-
-        channel.stream.listen((message) {
-          log('Received: $message');
-        });
       } catch (e) {
         log('error in websocket connection: $e');
       }
     }
   }
 
-  static void sendMessage(String message) {
+  static Future<void> onMessage(MessageCallback callback) async {
+    await channel.ready;
+    channel.stream.listen((message) {
+      log('Received: $message');
+      log('type of message: ${message.runtimeType}');
+      final messageMap = jsonDecode(message as String) as Map<String, dynamic>;
+      print('typeeee: ${messageMap['type']}');
+      if (messageMap['type'] == 'connected') {
+        return;
+      }
+
+      final decodedMessage = MessageModel.fromJson(messageMap);
+
+      callback(decodedMessage);
+    });
+  }
+
+  static void initMessaging(int roomId) {
+    final jsonMessage = jsonEncode({
+      'type': 'init_messaging',
+      'room_id': roomId,
+    });
+    channel.sink.add(jsonMessage);
+  }
+
+  static void sendMessage(
+      {required String message,
+      required int userId,
+      required String userName,
+      required bool userActive,
+      required int receiverId}) {
+    print('message: $message');
+    print('userId: $userId');
+    print('userName: $userName');
+    print('userActive: $userActive');
+    print('receiverId: $receiverId');
     final jsonMessage = jsonEncode({
       'message': message,
+      'user_id': userId,
+      'user_name': userName,
+      'user_active': userActive,
+      'date': DateTime.now().toIso8601String(),
+      'time': DateTime.now().toIso8601String(),
+      'receiver_id': receiverId,
+    });
+    channel.sink.add(jsonMessage);
+  }
+
+  static void disposeMessaging() {
+    final jsonMessage = jsonEncode({
+      'type': 'dispose_messaging',
+      'message': 'dispose_messaging',
     });
     channel.sink.add(jsonMessage);
   }

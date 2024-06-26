@@ -44,6 +44,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: ImageDetailView(
           imageUrl: args.imageUrl,
           heroTag: args.heroTag,
+          image: args.image,
           key: args.key,
         ),
       );
@@ -55,11 +56,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LiveSupportRoute.name: (routeData) {
-      final args = routeData.argsAs<LiveSupportRouteArgs>(
-          orElse: () => const LiveSupportRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LiveSupportView(key: args.key),
+        child: const LiveSupportView(),
       );
     },
     MessagesRoute.name: (routeData) {
@@ -176,6 +175,7 @@ class ImageDetailRoute extends PageRouteInfo<ImageDetailRouteArgs> {
   ImageDetailRoute({
     required String imageUrl,
     required String heroTag,
+    required UserImage image,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
@@ -183,6 +183,7 @@ class ImageDetailRoute extends PageRouteInfo<ImageDetailRouteArgs> {
           args: ImageDetailRouteArgs(
             imageUrl: imageUrl,
             heroTag: heroTag,
+            image: image,
             key: key,
           ),
           initialChildren: children,
@@ -198,6 +199,7 @@ class ImageDetailRouteArgs {
   const ImageDetailRouteArgs({
     required this.imageUrl,
     required this.heroTag,
+    required this.image,
     this.key,
   });
 
@@ -205,11 +207,13 @@ class ImageDetailRouteArgs {
 
   final String heroTag;
 
+  final UserImage image;
+
   final Key? key;
 
   @override
   String toString() {
-    return 'ImageDetailRouteArgs{imageUrl: $imageUrl, heroTag: $heroTag, key: $key}';
+    return 'ImageDetailRouteArgs{imageUrl: $imageUrl, heroTag: $heroTag, image: $image, key: $key}';
   }
 }
 
@@ -229,31 +233,16 @@ class ImageRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LiveSupportView]
-class LiveSupportRoute extends PageRouteInfo<LiveSupportRouteArgs> {
-  LiveSupportRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class LiveSupportRoute extends PageRouteInfo<void> {
+  const LiveSupportRoute({List<PageRouteInfo>? children})
+      : super(
           LiveSupportRoute.name,
-          args: LiveSupportRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LiveSupportRoute';
 
-  static const PageInfo<LiveSupportRouteArgs> page =
-      PageInfo<LiveSupportRouteArgs>(name);
-}
-
-class LiveSupportRouteArgs {
-  const LiveSupportRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'LiveSupportRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -17,48 +17,46 @@ class RecentActivities extends StatelessWidget {
       builder: (context, state) {
         if ((state.userImages?.images != null) ||
             (state.userImages?.images?.isNotEmpty ?? false)) {
-          return ListView.builder(
+          return GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
             itemCount: state.userImages?.images?.length ?? 0,
             itemBuilder: (context, index) {
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: state.userImages?.images?.length ?? 0,
-                itemBuilder: (context, index) {
-                  var imageUrl =
-                      state.userImages?.images?[index].processedImage ?? '';
-                  // Remove leading slash if present
-                  if (imageUrl.startsWith('/')) {
-                    imageUrl = imageUrl.substring(1);
-                  }
-                  final heroTag =
-                      '$imageUrl${DateTime.now().millisecondsSinceEpoch}';
+              var imageUrl =
+                  state.userImages?.images?[index].processedImage ?? '';
+              // Remove leading slash if present
+              if (imageUrl.startsWith('/')) {
+                imageUrl = imageUrl.substring(1);
+              }
+              final heroTag =
+                  '$imageUrl${DateTime.now().millisecondsSinceEpoch}';
 
-                  return Padding(
-                    padding:
-                        const PagePadding.symmetric(horizontal: 0, vertical: 4),
-                    child: InkWell(
-                      onTap: () => context.router.push(ImageDetailRoute(
+              return Padding(
+                padding:
+                    const PagePadding.symmetric(horizontal: 0, vertical: 4),
+                child: InkWell(
+                  onTap: () {
+                    if (state.userImages?.images?[index] != null) {
+                      context.router.push(ImageDetailRoute(
                         imageUrl: imageUrl,
+                        image: state.userImages!.images![index],
                         heroTag: heroTag,
-                      )),
-                      child: Hero(
-                        tag: heroTag,
-                        child: Image.network(
-                          '$baseUrl$imageUrl',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      ));
+                    }
+                  },
+                  child: Hero(
+                    tag: heroTag,
+                    child: Image.network(
+                      '$baseUrl$imageUrl',
+                      fit: BoxFit.cover,
                     ),
-                  );
-                },
+                  ),
+                ),
               );
             },
           );

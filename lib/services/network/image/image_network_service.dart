@@ -24,10 +24,12 @@ class ImageNetworkService {
     }
   }
 
-  Future<SaveImageModel> saveImage(File imageFile) async {
+  Future<SaveImageModel> saveImage(File imageFile,
+      {bool isImageProcessed = false}) async {
     try {
       final formData = FormData.fromMap({
         'image': await MultipartFile.fromFile(imageFile.path),
+        'is_image_processed': isImageProcessed,
       });
 
       final response =
@@ -41,8 +43,8 @@ class ImageNetworkService {
 
   Future<GetCargoCost> getCargoCost(
       {required int imageId,
-      required int height,
-      required int width,
+      required double height,
+      required double width,
       required String fromWhere,
       required String toWhere}) async {
     try {
@@ -54,6 +56,25 @@ class ImageNetworkService {
         'to_where': toWhere,
       });
       final response = await dio.post('cargo/get_cargo_cost/', data: formData);
+      return GetCargoCost.fromJson(response.data);
+    } catch (e) {
+      log('error in getCargoCost: $e');
+      rethrow;
+    }
+  }
+
+  Future<GetCargoCost> updateCargoCost(
+      {required int imageId,
+      required String fromWhere,
+      required String toWhere}) async {
+    try {
+      final formData = FormData.fromMap({
+        'image_id': imageId,
+        'from_where': fromWhere,
+        'to_where': toWhere,
+      });
+      final response =
+          await dio.post('cargo/update_cargo_cost/', data: formData);
       return GetCargoCost.fromJson(response.data);
     } catch (e) {
       log('error in getCargoCost: $e');

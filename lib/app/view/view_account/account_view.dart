@@ -78,6 +78,19 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                     ),
                   ),
                 ),
+                ListTile(
+                  title: const Text('Canlı Destek'),
+                  trailing: const Icon(Icons.chat_rounded),
+                  onTap: () {
+                    if (state.state == GeneralStates.signedin) {
+                      context.router.push(LiveSupportRoute());
+                    } else {
+                      messenger.showSnackBar(
+                          message:
+                              'Canlı desteği kullanabilmek için giriş yapmalısınız.');
+                    }
+                  },
+                ),
                 ListenableBuilder(
                   listenable: _localizationManager,
                   builder: (context, child) => ListTile(

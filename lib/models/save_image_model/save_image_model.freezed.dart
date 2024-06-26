@@ -25,7 +25,7 @@ mixin _$SaveImageModel {
   @JsonKey(name: 'message')
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'image')
-  Image? get image => throw _privateConstructorUsedError;
+  UserImage? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,9 +42,9 @@ abstract class $SaveImageModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'image') Image? image});
+      @JsonKey(name: 'image') UserImage? image});
 
-  $ImageCopyWith<$Res>? get image;
+  $UserImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -76,18 +76,18 @@ class _$SaveImageModelCopyWithImpl<$Res, $Val extends SaveImageModel>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as Image?,
+              as UserImage?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ImageCopyWith<$Res>? get image {
+  $UserImageCopyWith<$Res>? get image {
     if (_value.image == null) {
       return null;
     }
 
-    return $ImageCopyWith<$Res>(_value.image!, (value) {
+    return $UserImageCopyWith<$Res>(_value.image!, (value) {
       return _then(_value.copyWith(image: value) as $Val);
     });
   }
@@ -104,10 +104,10 @@ abstract class _$$SaveImageModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'image') Image? image});
+      @JsonKey(name: 'image') UserImage? image});
 
   @override
-  $ImageCopyWith<$Res>? get image;
+  $UserImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -137,7 +137,7 @@ class __$$SaveImageModelImplCopyWithImpl<$Res>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as Image?,
+              as UserImage?,
     ));
   }
 }
@@ -161,7 +161,7 @@ class _$SaveImageModelImpl implements _SaveImageModel {
   final String? message;
   @override
   @JsonKey(name: 'image')
-  final Image? image;
+  final UserImage? image;
 
   @override
   String toString() {
@@ -201,7 +201,7 @@ abstract class _SaveImageModel implements SaveImageModel {
   const factory _SaveImageModel(
       {@JsonKey(name: 'result') final String? result,
       @JsonKey(name: 'message') final String? message,
-      @JsonKey(name: 'image') final Image? image}) = _$SaveImageModelImpl;
+      @JsonKey(name: 'image') final UserImage? image}) = _$SaveImageModelImpl;
 
   factory _SaveImageModel.fromJson(Map<String, dynamic> json) =
       _$SaveImageModelImpl.fromJson;
@@ -214,314 +214,9 @@ abstract class _SaveImageModel implements SaveImageModel {
   String? get message;
   @override
   @JsonKey(name: 'image')
-  Image? get image;
+  UserImage? get image;
   @override
   @JsonKey(ignore: true)
   _$$SaveImageModelImplCopyWith<_$SaveImageModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Image _$ImageFromJson(Map<String, dynamic> json) {
-  return _Image.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Image {
-  @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image')
-  String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'processed_image')
-  String? get processedImage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'widths')
-  List<double>? get widths => throw _privateConstructorUsedError;
-  @JsonKey(name: 'heights')
-  List<double>? get heights => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user')
-  int? get user => throw _privateConstructorUsedError;
-  @JsonKey(name: 'total_cost')
-  double? get totalCost => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ImageCopyWith<Image> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ImageCopyWith<$Res> {
-  factory $ImageCopyWith(Image value, $Res Function(Image) then) =
-      _$ImageCopyWithImpl<$Res, Image>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'image') String? image,
-      @JsonKey(name: 'processed_image') String? processedImage,
-      @JsonKey(name: 'widths') List<double>? widths,
-      @JsonKey(name: 'heights') List<double>? heights,
-      @JsonKey(name: 'user') int? user,
-      @JsonKey(name: 'total_cost') double? totalCost});
-}
-
-/// @nodoc
-class _$ImageCopyWithImpl<$Res, $Val extends Image>
-    implements $ImageCopyWith<$Res> {
-  _$ImageCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? image = freezed,
-    Object? processedImage = freezed,
-    Object? widths = freezed,
-    Object? heights = freezed,
-    Object? user = freezed,
-    Object? totalCost = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      processedImage: freezed == processedImage
-          ? _value.processedImage
-          : processedImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      widths: freezed == widths
-          ? _value.widths
-          : widths // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
-      heights: freezed == heights
-          ? _value.heights
-          : heights // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalCost: freezed == totalCost
-          ? _value.totalCost
-          : totalCost // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ImageImplCopyWith<$Res> implements $ImageCopyWith<$Res> {
-  factory _$$ImageImplCopyWith(
-          _$ImageImpl value, $Res Function(_$ImageImpl) then) =
-      __$$ImageImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'image') String? image,
-      @JsonKey(name: 'processed_image') String? processedImage,
-      @JsonKey(name: 'widths') List<double>? widths,
-      @JsonKey(name: 'heights') List<double>? heights,
-      @JsonKey(name: 'user') int? user,
-      @JsonKey(name: 'total_cost') double? totalCost});
-}
-
-/// @nodoc
-class __$$ImageImplCopyWithImpl<$Res>
-    extends _$ImageCopyWithImpl<$Res, _$ImageImpl>
-    implements _$$ImageImplCopyWith<$Res> {
-  __$$ImageImplCopyWithImpl(
-      _$ImageImpl _value, $Res Function(_$ImageImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? image = freezed,
-    Object? processedImage = freezed,
-    Object? widths = freezed,
-    Object? heights = freezed,
-    Object? user = freezed,
-    Object? totalCost = freezed,
-  }) {
-    return _then(_$ImageImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      processedImage: freezed == processedImage
-          ? _value.processedImage
-          : processedImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      widths: freezed == widths
-          ? _value._widths
-          : widths // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
-      heights: freezed == heights
-          ? _value._heights
-          : heights // ignore: cast_nullable_to_non_nullable
-              as List<double>?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalCost: freezed == totalCost
-          ? _value.totalCost
-          : totalCost // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ImageImpl implements _Image {
-  const _$ImageImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'image') this.image,
-      @JsonKey(name: 'processed_image') this.processedImage,
-      @JsonKey(name: 'widths') final List<double>? widths,
-      @JsonKey(name: 'heights') final List<double>? heights,
-      @JsonKey(name: 'user') this.user,
-      @JsonKey(name: 'total_cost') this.totalCost})
-      : _widths = widths,
-        _heights = heights;
-
-  factory _$ImageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ImageImplFromJson(json);
-
-  @override
-  @JsonKey(name: 'id')
-  final int? id;
-  @override
-  @JsonKey(name: 'image')
-  final String? image;
-  @override
-  @JsonKey(name: 'processed_image')
-  final String? processedImage;
-  final List<double>? _widths;
-  @override
-  @JsonKey(name: 'widths')
-  List<double>? get widths {
-    final value = _widths;
-    if (value == null) return null;
-    if (_widths is EqualUnmodifiableListView) return _widths;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<double>? _heights;
-  @override
-  @JsonKey(name: 'heights')
-  List<double>? get heights {
-    final value = _heights;
-    if (value == null) return null;
-    if (_heights is EqualUnmodifiableListView) return _heights;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey(name: 'user')
-  final int? user;
-  @override
-  @JsonKey(name: 'total_cost')
-  final double? totalCost;
-
-  @override
-  String toString() {
-    return 'Image(id: $id, image: $image, processedImage: $processedImage, widths: $widths, heights: $heights, user: $user, totalCost: $totalCost)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ImageImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.processedImage, processedImage) ||
-                other.processedImage == processedImage) &&
-            const DeepCollectionEquality().equals(other._widths, _widths) &&
-            const DeepCollectionEquality().equals(other._heights, _heights) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.totalCost, totalCost) ||
-                other.totalCost == totalCost));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      image,
-      processedImage,
-      const DeepCollectionEquality().hash(_widths),
-      const DeepCollectionEquality().hash(_heights),
-      user,
-      totalCost);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ImageImplCopyWith<_$ImageImpl> get copyWith =>
-      __$$ImageImplCopyWithImpl<_$ImageImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ImageImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Image implements Image {
-  const factory _Image(
-      {@JsonKey(name: 'id') final int? id,
-      @JsonKey(name: 'image') final String? image,
-      @JsonKey(name: 'processed_image') final String? processedImage,
-      @JsonKey(name: 'widths') final List<double>? widths,
-      @JsonKey(name: 'heights') final List<double>? heights,
-      @JsonKey(name: 'user') final int? user,
-      @JsonKey(name: 'total_cost') final double? totalCost}) = _$ImageImpl;
-
-  factory _Image.fromJson(Map<String, dynamic> json) = _$ImageImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'id')
-  int? get id;
-  @override
-  @JsonKey(name: 'image')
-  String? get image;
-  @override
-  @JsonKey(name: 'processed_image')
-  String? get processedImage;
-  @override
-  @JsonKey(name: 'widths')
-  List<double>? get widths;
-  @override
-  @JsonKey(name: 'heights')
-  List<double>? get heights;
-  @override
-  @JsonKey(name: 'user')
-  int? get user;
-  @override
-  @JsonKey(name: 'total_cost')
-  double? get totalCost;
-  @override
-  @JsonKey(ignore: true)
-  _$$ImageImplCopyWith<_$ImageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

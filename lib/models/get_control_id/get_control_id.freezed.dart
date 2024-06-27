@@ -26,6 +26,8 @@ mixin _$GetControlId {
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'my_activation_user')
   int? get myActivationUser => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_superuser')
+  bool? get isSuperuser => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,8 @@ abstract class $GetControlIdCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'my_activation_user') int? myActivationUser});
+      @JsonKey(name: 'my_activation_user') int? myActivationUser,
+      @JsonKey(name: 'is_superuser') bool? isSuperuser});
 }
 
 /// @nodoc
@@ -61,6 +64,7 @@ class _$GetControlIdCopyWithImpl<$Res, $Val extends GetControlId>
     Object? result = freezed,
     Object? message = freezed,
     Object? myActivationUser = freezed,
+    Object? isSuperuser = freezed,
   }) {
     return _then(_value.copyWith(
       result: freezed == result
@@ -75,6 +79,10 @@ class _$GetControlIdCopyWithImpl<$Res, $Val extends GetControlId>
           ? _value.myActivationUser
           : myActivationUser // ignore: cast_nullable_to_non_nullable
               as int?,
+      isSuperuser: freezed == isSuperuser
+          ? _value.isSuperuser
+          : isSuperuser // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -90,7 +98,8 @@ abstract class _$$GetControlIdImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'result') String? result,
       @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'my_activation_user') int? myActivationUser});
+      @JsonKey(name: 'my_activation_user') int? myActivationUser,
+      @JsonKey(name: 'is_superuser') bool? isSuperuser});
 }
 
 /// @nodoc
@@ -107,6 +116,7 @@ class __$$GetControlIdImplCopyWithImpl<$Res>
     Object? result = freezed,
     Object? message = freezed,
     Object? myActivationUser = freezed,
+    Object? isSuperuser = freezed,
   }) {
     return _then(_$GetControlIdImpl(
       result: freezed == result
@@ -121,6 +131,10 @@ class __$$GetControlIdImplCopyWithImpl<$Res>
           ? _value.myActivationUser
           : myActivationUser // ignore: cast_nullable_to_non_nullable
               as int?,
+      isSuperuser: freezed == isSuperuser
+          ? _value.isSuperuser
+          : isSuperuser // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -131,7 +145,8 @@ class _$GetControlIdImpl implements _GetControlId {
   const _$GetControlIdImpl(
       {@JsonKey(name: 'result') this.result,
       @JsonKey(name: 'message') this.message,
-      @JsonKey(name: 'my_activation_user') this.myActivationUser});
+      @JsonKey(name: 'my_activation_user') this.myActivationUser,
+      @JsonKey(name: 'is_superuser') this.isSuperuser});
 
   factory _$GetControlIdImpl.fromJson(Map<String, dynamic> json) =>
       _$$GetControlIdImplFromJson(json);
@@ -145,10 +160,13 @@ class _$GetControlIdImpl implements _GetControlId {
   @override
   @JsonKey(name: 'my_activation_user')
   final int? myActivationUser;
+  @override
+  @JsonKey(name: 'is_superuser')
+  final bool? isSuperuser;
 
   @override
   String toString() {
-    return 'GetControlId(result: $result, message: $message, myActivationUser: $myActivationUser)';
+    return 'GetControlId(result: $result, message: $message, myActivationUser: $myActivationUser, isSuperuser: $isSuperuser)';
   }
 
   @override
@@ -159,13 +177,15 @@ class _$GetControlIdImpl implements _GetControlId {
             (identical(other.result, result) || other.result == result) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.myActivationUser, myActivationUser) ||
-                other.myActivationUser == myActivationUser));
+                other.myActivationUser == myActivationUser) &&
+            (identical(other.isSuperuser, isSuperuser) ||
+                other.isSuperuser == isSuperuser));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, result, message, myActivationUser);
+      Object.hash(runtimeType, result, message, myActivationUser, isSuperuser);
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +205,8 @@ abstract class _GetControlId implements GetControlId {
   const factory _GetControlId(
           {@JsonKey(name: 'result') final String? result,
           @JsonKey(name: 'message') final String? message,
-          @JsonKey(name: 'my_activation_user') final int? myActivationUser}) =
+          @JsonKey(name: 'my_activation_user') final int? myActivationUser,
+          @JsonKey(name: 'is_superuser') final bool? isSuperuser}) =
       _$GetControlIdImpl;
 
   factory _GetControlId.fromJson(Map<String, dynamic> json) =
@@ -200,6 +221,9 @@ abstract class _GetControlId implements GetControlId {
   @override
   @JsonKey(name: 'my_activation_user')
   int? get myActivationUser;
+  @override
+  @JsonKey(name: 'is_superuser')
+  bool? get isSuperuser;
   @override
   @JsonKey(ignore: true)
   _$$GetControlIdImplCopyWith<_$GetControlIdImpl> get copyWith =>

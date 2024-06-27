@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:alisatiyor/app/l10n/app_localizations.dart';
 import 'package:alisatiyor/app/l10n/localization_manager.dart';
 import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/app/themes/theme_manager.dart';
 import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
+import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
 import 'package:alisatiyor/core/snackbar/snackbar_messenger_mixin.dart';
 import 'package:alisatiyor/core/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:alisatiyor/core/widgets/form_field/custom_text_form_field.dart';
@@ -83,7 +86,14 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                   trailing: const Icon(Icons.chat_rounded),
                   onTap: () {
                     if (state.state == GeneralStates.signedin) {
-                      context.router.push(LiveSupportRoute());
+                      if (state.isSuperuser ?? false) {
+                        context.router.push(const AdminLiveSupportRoute());
+                      } else {
+                        context.router.push(
+                          LiveSupportRoute(
+                              messagesCubit: context.read<MessagesCubit>()),
+                        );
+                      }
                     } else {
                       messenger.showSnackBar(
                           message:

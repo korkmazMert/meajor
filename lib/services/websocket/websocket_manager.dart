@@ -1,18 +1,25 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:alisatiyor/models/message_model/message_model.dart';
+import 'package:alisatiyor/models/notify_new_message/notify_new_message.dart';
+import 'package:alisatiyor/models/websocket_connection_model/websocket_connection_model.dart';
 import 'package:alisatiyor/services/network/auth/auth_service.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 typedef MessageCallback = void Function(MessageModel message);
+typedef ConnectionCallback = void Function(WebsocketConnectionModel connection);
+typedef NotifyNewMessageCallback = void Function(NotifyNewMessage message);
 
 class WebsocketManager {
   factory WebsocketManager() => _instance;
   WebsocketManager._();
   static late WebSocketChannel channel;
   static final WebsocketManager _instance = WebsocketManager._();
+  static StreamSubscription? _subscription;
+  static StreamController? broadcastStreamController;
   static const String wsScheme = 'ws';
   static Future<void> initializeWebsocket() async {
     final authService = AuthService.instance;
@@ -30,28 +37,54 @@ class WebsocketManager {
     }
   }
 
-  static Future<void> onMessage(MessageCallback callback) async {
+  static Future<void> onMessage({
+    MessageCallback? messageCallBack,
+    ConnectionCallback? connectionCallBack,
+    NotifyNewMessageCallback? notifyNewMessageCallBack,
+  }) async {
     await channel.ready;
-    channel.stream.listen((message) {
+    await _subscription?.cancel();
+    await broadcastStreamController?.close();
+    broadcastStreamController = StreamController.broadcast();
+
+    _subscription = channel.stream.listen((message) {
+      broadcastStreamController?.add(message);
+    });
+
+    broadcastStreamController?.stream.listen((message) {
       log('Received: $message');
       log('type of message: ${message.runtimeType}');
       final messageMap = jsonDecode(message as String) as Map<String, dynamic>;
       print('typeeee: ${messageMap['type']}');
-      if (messageMap['type'] == 'connected') {
-        return;
+      if (messageMap['type'] == 'connected' ||
+          messageMap['type'] == 'disconnected') {
+        final decodedConnection = WebsocketConnectionModel.fromJson(messageMap);
+        if (connectionCallBack != null) {
+          connectionCallBack(decodedConnection);
+        }
+      } else if (messageMap['type'] == 'notify_new_message') {
+        print('messsssage: $messageMap');
+        if (notifyNewMessageCallBack != null) {
+          final decodedNotifyNewMessage = NotifyNewMessage.fromJson(messageMap);
+          print('decodedNotifyNewMessage: $decodedNotifyNewMessage  ');
+          notifyNewMessageCallBack(decodedNotifyNewMessage);
+        }
+      } else {
+        final decodedMessage = MessageModel.fromJson(messageMap);
+        if (messageCallBack != null) {
+          messageCallBack(decodedMessage);
+        }
       }
-
-      final decodedMessage = MessageModel.fromJson(messageMap);
-
-      callback(decodedMessage);
     });
   }
 
-  static void initMessaging(int roomId) {
+  static Future<void> initMessaging(int roomId) async {
+    print('roomId: $roomId');
     final jsonMessage = jsonEncode({
       'type': 'init_messaging',
       'room_id': roomId,
     });
+    await channel.ready;
     channel.sink.add(jsonMessage);
   }
 
@@ -61,11 +94,6 @@ class WebsocketManager {
       required String userName,
       required bool userActive,
       required int receiverId}) {
-    print('message: $message');
-    print('userId: $userId');
-    print('userName: $userName');
-    print('userActive: $userActive');
-    print('receiverId: $receiverId');
     final jsonMessage = jsonEncode({
       'message': message,
       'user_id': userId,

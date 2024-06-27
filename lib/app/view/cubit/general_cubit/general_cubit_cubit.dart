@@ -11,14 +11,20 @@ part 'general_cubit_state.dart';
 class GeneralCubit extends Cubit<GeneralState> {
   GeneralCubit() : super(const GeneralState());
   AuthService authService = AuthService.instance;
-  HiveService _hiveService = HiveService.instance;
+  HiveService hiveService = HiveService.instance;
   Future<void> initHive() async {
-    final isSignedin = await _hiveService.getDataFromBox(
+    final isSignedin = await hiveService.getDataFromBox(
         BoxNames.isSignedin.name, BoxNames.isSignedin.name);
     log('is signed in: $isSignedin');
     if (isSignedin == true) {
       emit(state.copyWith(state: GeneralStates.signedin));
     }
+  }
+
+  Future<void> getUserInfo() async {
+    final controlId = await authService.getControlId();
+    log('controlId: $controlId');
+    emit(state.copyWith(isSuperuser: controlId.isSuperuser));
   }
 
   void loading() {
@@ -35,9 +41,10 @@ class GeneralCubit extends Cubit<GeneralState> {
           result: authResult.result,
           message: authResult.message,
         ));
-        await _hiveService.writeDataToBox(
+        await hiveService.writeDataToBox(
             BoxNames.isSignedin.name, BoxNames.isSignedin.name, true);
         await getAccountInfo();
+        await getUserInfo();
       } else {
         emit(state.copyWith(
           state: GeneralStates.error,
@@ -91,8 +98,9 @@ class GeneralCubit extends Cubit<GeneralState> {
           result: signoutResult.result,
           message: signoutResult.message,
         ));
-        await _hiveService.writeDataToBox(
+        await hiveService.writeDataToBox(
             BoxNames.isSignedin.name, BoxNames.isSignedin.name, false);
+        await getUserInfo();
       } else {
         emit(state.copyWith(
           state: GeneralStates.error,

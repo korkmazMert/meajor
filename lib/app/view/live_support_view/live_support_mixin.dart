@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
 import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
 import 'package:alisatiyor/core/padding/page_padding.dart';
@@ -20,7 +22,8 @@ mixin LiveSupportMixin {
                 itemBuilder: (BuildContext context, int index) {
                   final reversedIndex = state.messages.length - index - 1;
                   return Container(
-                    alignment: generalState.state == GeneralStates.signedin
+                    alignment: state.messages[reversedIndex].userId ==
+                            state.chatRooms?.myActivationUser
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: messageTile(
@@ -37,7 +40,8 @@ mixin LiveSupportMixin {
 
   Widget messageInputWidget(BuildContext context,
       {required TextEditingController messageInputController,
-      required ScrollController scrollController}) {
+      required ScrollController scrollController,
+      int? roomId}) {
     return BlocBuilder<MessagesCubit, MessagesState>(
       builder: (context, state) {
         return Padding(
@@ -48,13 +52,6 @@ mixin LiveSupportMixin {
                 child: TextField(
                   controller: messageInputController,
                   decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.photo_outlined),
-                        onPressed: () {
-                          // ignore: avoid_print
-                          print('Attach file');
-                        },
-                      ),
                       fillColor: Colors.transparent,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
@@ -175,7 +172,9 @@ mixin LiveSupportMixin {
   void _sendMessage(
       {required TextEditingController messageInputController,
       required ScrollController scrollController,
-      required MessagesState state}) {
+      required MessagesState state,
+      int? roomId}) {
+    print('inside send message');
     if (messageInputController.text.isNotEmpty) {
       if (state.openLiveSupport?.roomId != null) {
         int receiverId;
@@ -185,6 +184,7 @@ mixin LiveSupportMixin {
         } else {
           receiverId = state.openLiveSupport!.participant!.receiverId!;
         }
+        log('receiverId: $receiverId');
         WebsocketManager.sendMessage(
             message: messageInputController.text,
             userId: state.openLiveSupport!.myActivationUser!,
@@ -192,7 +192,6 @@ mixin LiveSupportMixin {
             userActive: state.openLiveSupport!.userActive!,
             receiverId: receiverId);
       }
-
       messageInputController.clear();
       scrollController.animateTo(
         scrollController.position.minScrollExtent,

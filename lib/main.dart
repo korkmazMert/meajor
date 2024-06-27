@@ -21,11 +21,23 @@ Future<void> main() async {
       create: (context) => ConnectivityProvider(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => GeneralCubit()..initHive()),
+          BlocProvider(
+            create: (context) => GeneralCubit()
+              ..initHive()
+              ..getUserInfo(),
+          ),
           BlocProvider(create: (context) => ImageCubit()..getUserImages()),
-          BlocProvider(create: (context) => MessagesCubit()),
+          BlocProvider(
+            create: (context) => MessagesCubit()..getChatRooms(),
+            lazy: false,
+          ),
         ],
-        child: const App(),
+        child: BlocListener<GeneralCubit, GeneralState>(
+          listener: (context, state) {
+            context.read<MessagesCubit>().getChatRooms();
+          },
+          child: const App(),
+        ),
       ),
     ),
   );

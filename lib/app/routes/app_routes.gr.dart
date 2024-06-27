@@ -23,6 +23,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: AccountView(key: args.key),
       );
     },
+    AdminLiveSupportRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AdminLiveSupportView(),
+      );
+    },
     CustomScaffoldRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -56,9 +62,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LiveSupportRoute.name: (routeData) {
+      final args = routeData.argsAs<LiveSupportRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LiveSupportView(),
+        child: LiveSupportView(
+          messagesCubit: args.messagesCubit,
+          roomId: args.roomId,
+          key: args.key,
+        ),
       );
     },
     MessagesRoute.name: (routeData) {
@@ -125,6 +136,20 @@ class AccountRouteArgs {
   String toString() {
     return 'AccountRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [AdminLiveSupportView]
+class AdminLiveSupportRoute extends PageRouteInfo<void> {
+  const AdminLiveSupportRoute({List<PageRouteInfo>? children})
+      : super(
+          AdminLiveSupportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AdminLiveSupportRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -233,16 +258,45 @@ class ImageRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LiveSupportView]
-class LiveSupportRoute extends PageRouteInfo<void> {
-  const LiveSupportRoute({List<PageRouteInfo>? children})
-      : super(
+class LiveSupportRoute extends PageRouteInfo<LiveSupportRouteArgs> {
+  LiveSupportRoute({
+    required MessagesCubit messagesCubit,
+    int? roomId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           LiveSupportRoute.name,
+          args: LiveSupportRouteArgs(
+            messagesCubit: messagesCubit,
+            roomId: roomId,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'LiveSupportRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<LiveSupportRouteArgs> page =
+      PageInfo<LiveSupportRouteArgs>(name);
+}
+
+class LiveSupportRouteArgs {
+  const LiveSupportRouteArgs({
+    required this.messagesCubit,
+    this.roomId,
+    this.key,
+  });
+
+  final MessagesCubit messagesCubit;
+
+  final int? roomId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LiveSupportRouteArgs{messagesCubit: $messagesCubit, roomId: $roomId, key: $key}';
+  }
 }
 
 /// generated route for

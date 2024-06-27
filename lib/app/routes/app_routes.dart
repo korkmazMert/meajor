@@ -1,3 +1,5 @@
+import 'package:alisatiyor/app/view/admin_live_support_view/admin_live_support_view.dart';
+import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
 import 'package:alisatiyor/app/view/home_view/home_view.dart';
 import 'package:alisatiyor/app/view/image_detail_view/image_detail_view.dart';
 import 'package:alisatiyor/app/view/image_view/image_view.dart';
@@ -27,6 +29,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: SaveImageRoute.page),
     AutoRoute(page: ImageDetailRoute.page),
     AutoRoute(page: LiveSupportRoute.page),
+    AutoRoute(page: AdminLiveSupportRoute.page),
     AutoRoute(page: CustomScaffoldRoute.page, children: [
       AutoRoute(page: HomeRoute.page, initial: true),
       AutoRoute(page: AccountRoute.page),

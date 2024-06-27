@@ -5,9 +5,13 @@ import 'package:alisatiyor/app/l10n/localization_manager.dart';
 import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/app/themes/app_theme.dart';
 import 'package:alisatiyor/app/themes/theme_manager.dart';
+import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
 import 'package:alisatiyor/core/connection/connectivity_provider.dart';
 import 'package:alisatiyor/core/globals/globals.dart';
 import 'package:alisatiyor/core/widgets/connection/no_network_widget.dart';
+import 'package:alisatiyor/models/message_model/message_model.dart';
+import 'package:alisatiyor/models/notify_new_message/notify_new_message.dart';
+import 'package:alisatiyor/services/websocket/websocket_manager.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +36,24 @@ class _AppState extends State<App> {
     _listener = AppLifecycleListener(
       onStateChange: _onStateChanged,
     );
+    WebsocketManager.onMessage(
+        messageCallBack: _onMessageReceived,
+        notifyNewMessageCallBack: _notifyNewMessage);
+  }
+
+  void _notifyNewMessage(NotifyNewMessage message) {
+    if (!mounted) return;
+    print('notify_new_messageeeee: $message');
+    //update room
+    context.read<MessagesCubit>().updateRoom(message);
+  }
+
+  void _onMessageReceived(MessageModel message) {
+    if (!mounted) return; // Check if the widget is still in the tree
+
+    //add message
+    log('message in MessagesView: $message');
+    context.read<MessagesCubit>().addMessage(message);
   }
 
   @override

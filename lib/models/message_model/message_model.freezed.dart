@@ -22,6 +22,8 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) {
 mixin _$MessageModel {
   @JsonKey(name: 'type')
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'room_id')
+  int? get roomId => throw _privateConstructorUsedError;
   @JsonKey(name: 'message_id')
   int? get messageId => throw _privateConstructorUsedError;
   @JsonKey(name: 'message')
@@ -34,6 +36,8 @@ mixin _$MessageModel {
   bool? get isRead => throw _privateConstructorUsedError;
   @JsonKey(name: 'time')
   String? get time => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date')
+  String? get date => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_time')
   String? get readTime => throw _privateConstructorUsedError;
 
@@ -51,12 +55,14 @@ abstract class $MessageModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'room_id') int? roomId,
       @JsonKey(name: 'message_id') int? messageId,
       @JsonKey(name: 'message') String? message,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'user_name') String? userName,
       @JsonKey(name: 'is_read') bool? isRead,
       @JsonKey(name: 'time') String? time,
+      @JsonKey(name: 'date') String? date,
       @JsonKey(name: 'read_time') String? readTime});
 }
 
@@ -74,12 +80,14 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
   @override
   $Res call({
     Object? type = freezed,
+    Object? roomId = freezed,
     Object? messageId = freezed,
     Object? message = freezed,
     Object? userId = freezed,
     Object? userName = freezed,
     Object? isRead = freezed,
     Object? time = freezed,
+    Object? date = freezed,
     Object? readTime = freezed,
   }) {
     return _then(_value.copyWith(
@@ -87,6 +95,10 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      roomId: freezed == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as int?,
       messageId: freezed == messageId
           ? _value.messageId
           : messageId // ignore: cast_nullable_to_non_nullable
@@ -110,6 +122,10 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       readTime: freezed == readTime
           ? _value.readTime
@@ -129,12 +145,14 @@ abstract class _$$MessageModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'room_id') int? roomId,
       @JsonKey(name: 'message_id') int? messageId,
       @JsonKey(name: 'message') String? message,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'user_name') String? userName,
       @JsonKey(name: 'is_read') bool? isRead,
       @JsonKey(name: 'time') String? time,
+      @JsonKey(name: 'date') String? date,
       @JsonKey(name: 'read_time') String? readTime});
 }
 
@@ -150,12 +168,14 @@ class __$$MessageModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? type = freezed,
+    Object? roomId = freezed,
     Object? messageId = freezed,
     Object? message = freezed,
     Object? userId = freezed,
     Object? userName = freezed,
     Object? isRead = freezed,
     Object? time = freezed,
+    Object? date = freezed,
     Object? readTime = freezed,
   }) {
     return _then(_$MessageModelImpl(
@@ -163,6 +183,10 @@ class __$$MessageModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      roomId: freezed == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as int?,
       messageId: freezed == messageId
           ? _value.messageId
           : messageId // ignore: cast_nullable_to_non_nullable
@@ -187,6 +211,10 @@ class __$$MessageModelImplCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
       readTime: freezed == readTime
           ? _value.readTime
           : readTime // ignore: cast_nullable_to_non_nullable
@@ -200,12 +228,14 @@ class __$$MessageModelImplCopyWithImpl<$Res>
 class _$MessageModelImpl implements _MessageModel {
   const _$MessageModelImpl(
       {@JsonKey(name: 'type') this.type,
+      @JsonKey(name: 'room_id') this.roomId,
       @JsonKey(name: 'message_id') this.messageId,
       @JsonKey(name: 'message') this.message,
       @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'user_name') this.userName,
       @JsonKey(name: 'is_read') this.isRead,
       @JsonKey(name: 'time') this.time,
+      @JsonKey(name: 'date') this.date,
       @JsonKey(name: 'read_time') this.readTime});
 
   factory _$MessageModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -214,6 +244,9 @@ class _$MessageModelImpl implements _MessageModel {
   @override
   @JsonKey(name: 'type')
   final String? type;
+  @override
+  @JsonKey(name: 'room_id')
+  final int? roomId;
   @override
   @JsonKey(name: 'message_id')
   final int? messageId;
@@ -233,12 +266,15 @@ class _$MessageModelImpl implements _MessageModel {
   @JsonKey(name: 'time')
   final String? time;
   @override
+  @JsonKey(name: 'date')
+  final String? date;
+  @override
   @JsonKey(name: 'read_time')
   final String? readTime;
 
   @override
   String toString() {
-    return 'MessageModel(type: $type, messageId: $messageId, message: $message, userId: $userId, userName: $userName, isRead: $isRead, time: $time, readTime: $readTime)';
+    return 'MessageModel(type: $type, roomId: $roomId, messageId: $messageId, message: $message, userId: $userId, userName: $userName, isRead: $isRead, time: $time, date: $date, readTime: $readTime)';
   }
 
   @override
@@ -247,6 +283,7 @@ class _$MessageModelImpl implements _MessageModel {
         (other.runtimeType == runtimeType &&
             other is _$MessageModelImpl &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
             (identical(other.messageId, messageId) ||
                 other.messageId == messageId) &&
             (identical(other.message, message) || other.message == message) &&
@@ -255,14 +292,15 @@ class _$MessageModelImpl implements _MessageModel {
                 other.userName == userName) &&
             (identical(other.isRead, isRead) || other.isRead == isRead) &&
             (identical(other.time, time) || other.time == time) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.readTime, readTime) ||
                 other.readTime == readTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, messageId, message, userId,
-      userName, isRead, time, readTime);
+  int get hashCode => Object.hash(runtimeType, type, roomId, messageId, message,
+      userId, userName, isRead, time, date, readTime);
 
   @JsonKey(ignore: true)
   @override
@@ -281,12 +319,14 @@ class _$MessageModelImpl implements _MessageModel {
 abstract class _MessageModel implements MessageModel {
   const factory _MessageModel(
       {@JsonKey(name: 'type') final String? type,
+      @JsonKey(name: 'room_id') final int? roomId,
       @JsonKey(name: 'message_id') final int? messageId,
       @JsonKey(name: 'message') final String? message,
       @JsonKey(name: 'user_id') final int? userId,
       @JsonKey(name: 'user_name') final String? userName,
       @JsonKey(name: 'is_read') final bool? isRead,
       @JsonKey(name: 'time') final String? time,
+      @JsonKey(name: 'date') final String? date,
       @JsonKey(name: 'read_time') final String? readTime}) = _$MessageModelImpl;
 
   factory _MessageModel.fromJson(Map<String, dynamic> json) =
@@ -295,6 +335,9 @@ abstract class _MessageModel implements MessageModel {
   @override
   @JsonKey(name: 'type')
   String? get type;
+  @override
+  @JsonKey(name: 'room_id')
+  int? get roomId;
   @override
   @JsonKey(name: 'message_id')
   int? get messageId;
@@ -313,6 +356,9 @@ abstract class _MessageModel implements MessageModel {
   @override
   @JsonKey(name: 'time')
   String? get time;
+  @override
+  @JsonKey(name: 'date')
+  String? get date;
   @override
   @JsonKey(name: 'read_time')
   String? get readTime;

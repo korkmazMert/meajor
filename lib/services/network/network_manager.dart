@@ -1,7 +1,5 @@
 // ignore_for_file: inference_failure_on_function_invocation, avoid_dynamic_calls,argument_type_not_assignable
 
-import 'package:alisatiyor/services/local/hive_service.dart';
-
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +16,6 @@ final BaseOptions baseOptions = BaseOptions(
 
 class NetworkManager {
   NetworkManager._();
-  final HiveService _hiveService = HiveService.instance;
   Dio dio = Dio(baseOptions);
   PersistCookieJar? cookieJar;
 
@@ -65,51 +62,9 @@ class NetworkManager {
   ];
 
   void _initHeaders() {
-    //jwt token interceptor
-    // dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) async {
-    //     if (jwtAuthenticatedPaths.contains(options.path)) {
-    //       final accessToken = await _hiveService.getDataFromBox(
-    //           BoxNames.jwt.name, BoxKeys.accessToken.name);
-    //       final refreshToken = await _hiveService.getDataFromBox(
-    //           BoxNames.jwt.name, BoxKeys.refreshToken.name);
-    //       if (accessToken != null && refreshToken != null) {
-    //         if (JwtDecoder.isExpired(accessToken)) {
-    //           await refreshJwtToken(refreshToken);
-    //           final accessTokenUpdated = await _hiveService.getDataFromBox(
-    //               BoxNames.jwt.name, BoxKeys.accessToken.name);
-    //           options.headers['Authorization'] =
-    //               'Bearer $accessTokenUpdated'; // update the header of the current request
-    //         } else {
-    //           options.headers['Authorization'] = 'Bearer $accessToken';
-    //         }
-    //       }
-    //       return handler.next(options);
-    //     } else {
-    //       return handler.next(options);
-    //     }
-    //     // continue with the request
-    //   },
-    // ));
     dio.interceptors.add(CurlLoggerDioInterceptor());
     dio.options.headers['Referer'] = baseUrl;
     dio.options.headers['X-Platform'] = 'mobile';
     dio.options.headers['Content-Type'] = 'application/json';
   }
-
-  // Future<void> refreshJwtToken(String refreshToken) async {
-  //   try {
-  //     final refreshTokenDio = Dio(baseOptions);
-  //     final response = await refreshTokenDio
-  //         .post('/api/token/refresh/', data: {'refresh': refreshToken});
-  //     final refreshResponse = JWTResponse.fromJson(response.data);
-
-  //     await _hiveService.writeDataToBox(
-  //         BoxNames.jwt.name, BoxKeys.accessToken.name, refreshResponse.access);
-  //     await _hiveService.writeDataToBox(BoxNames.jwt.name,
-  //         BoxKeys.refreshToken.name, refreshResponse.refresh);
-  //   } catch (e) {
-  //     debugPrint('refresh token error: $e');
-  //   }
-  // }
 }

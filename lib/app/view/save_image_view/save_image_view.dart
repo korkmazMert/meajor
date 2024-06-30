@@ -30,11 +30,12 @@ class SaveImageView extends StatelessWidget {
       TextEditingController();
   final TextEditingController heightController = TextEditingController();
   final TextEditingController widthController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Save Image')),
+      appBar: AppBar(title: const Text('Fiyat Hesapla')),
       body: BlocListener<ImageCubit, ImageState>(
         listener: (context, state) {
           if (state.state == ImageStates.loaded &&
@@ -46,7 +47,7 @@ class SaveImageView extends StatelessWidget {
                 'Kargo Ücretiniz: ',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              content: Text('\$ ${state.cargoCost!.totalCost!.toPrice} '),
+              content: Text('${state.cargoCost!.totalCost!.toPrice} TL '),
               onConfirm: () {
                 context.router.maybePop();
                 context.router.replaceAll([HomeRoute()]);
@@ -80,6 +81,13 @@ class SaveImageView extends StatelessWidget {
                               validator: (p0) => p0!.isEmpty
                                   ? 'Lütfen genişlik giriniz'
                                   : null,
+                            ),
+                            const SizedBox(height: 5),
+                            CustomTextFormField(
+                              labelText: 'Ağırlık (kg)',
+                              controller: weightController,
+                              validator: (p0) =>
+                                  p0!.isEmpty ? 'Lütfen ağırlık giriniz' : null,
                             ),
                             const SizedBox(height: 5),
                           ],
@@ -155,6 +163,7 @@ class SaveImageView extends StatelessWidget {
                                   image: imageService.images.value.first,
                                   height: double.parse(heightController.text),
                                   width: double.parse(widthController.text),
+                                  weight: double.parse(weightController.text),
                                   fromWhere:
                                       '${fromWhereDistrictController.text} , ${fromWhereCityController.text}',
                                   toWhere:

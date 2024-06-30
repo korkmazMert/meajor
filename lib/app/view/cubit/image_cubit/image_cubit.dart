@@ -68,12 +68,14 @@ class ImageCubit extends Cubit<ImageState> {
     } catch (e) {
       log('error in updateCargoCost: $e');
     }
+    return null;
   }
 
   Future<void> saveImageToDb(
       {required File image,
       required double height,
       required double width,
+      required double weight,
       required String fromWhere,
       required String toWhere}) async {
     print('fromWhere: $fromWhere');
@@ -87,6 +89,7 @@ class ImageCubit extends Cubit<ImageState> {
         imageId: saveImageResponse.image!.id!,
         height: height,
         width: width,
+        weight: weight,
         fromWhere: fromWhere,
         toWhere: toWhere,
       );

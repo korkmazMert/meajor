@@ -22,11 +22,11 @@ class CustomNavbar extends StatelessWidget {
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Ana Sayfa',
             ),
             NavigationDestination(
               icon: Icon(Icons.person),
-              label: 'Profile',
+              label: 'Profil',
             ),
           ],
         );

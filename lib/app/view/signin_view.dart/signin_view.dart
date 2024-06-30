@@ -95,7 +95,7 @@ class SigninView extends StatelessWidget {
                         width: context.width * 0.9,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.router.push(const SignupRoute());
+                            context.router.push(SignupRoute());
                           },
                           child: const Text('Üye Ol'),
                         ),

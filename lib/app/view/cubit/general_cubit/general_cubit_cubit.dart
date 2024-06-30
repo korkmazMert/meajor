@@ -53,6 +53,47 @@ class GeneralCubit extends Cubit<GeneralState> {
         ));
       }
     } catch (e) {
+      log('error in signin: $e');
+      emit(state.copyWith(
+        state: GeneralStates.error,
+        result: 'error',
+        message: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> signup({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String password,
+    required String password2,
+  }) async {
+    loading();
+    try {
+      final authResult = await authService.signup(
+          email, firstName, lastName, password, password2);
+      log('authResult: $authResult');
+      if (authResult.result == 'success') {
+        emit(state.copyWith(
+          state: GeneralStates.signedin,
+          result: authResult.result,
+          message: authResult.message,
+        ));
+        await hiveService.writeDataToBox(
+            BoxNames.isSignedin.name, BoxNames.isSignedin.name, true);
+        await getAccountInfo();
+        await getUserInfo();
+      } else {
+        emit(state.copyWith(
+          state: GeneralStates.error,
+          result: authResult.result,
+          message: authResult.message,
+        ));
+      }
+    } catch (e) {
+      log('error in signup: $e');
+
       emit(state.copyWith(
         state: GeneralStates.error,
         result: 'error',

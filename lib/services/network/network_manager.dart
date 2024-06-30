@@ -57,10 +57,6 @@ class NetworkManager {
     }
   }
 
-  static const List<String> jwtAuthenticatedPaths = [
-    'api/user/login/',
-  ];
-
   void _initHeaders() {
     dio.interceptors.add(CurlLoggerDioInterceptor());
     dio.options.headers['Referer'] = baseUrl;

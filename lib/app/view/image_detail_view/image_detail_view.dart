@@ -64,7 +64,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
               ),
             ),
             if (userImage?.totalCost != null)
-              Text('Kargo Tutarı: \$ ${userImage?.totalCost!.toPrice}'),
+              Text('Kargo Tutarı: ${userImage?.totalCost!.toPrice} TL'),
             if ((userImage?.toWhere != null) && (userImage?.fromWhere != null))
               Container(
                 color: Colors.grey[200],

@@ -41,7 +41,6 @@ class ImageService {
       await FlutterImageCompress.compressAndGetFile(
         sourceFile.absolute.path,
         targetFile.absolute.path,
-        quality: 88,
       );
 
       // Add the file to the images list.

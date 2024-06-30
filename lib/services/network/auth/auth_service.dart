@@ -53,8 +53,8 @@ class AuthService {
     try {
       final requestBody = FormData.fromMap({
         'email': email,
-        'firstName': firstName,
-        'lastName': lastName,
+        'first_name': firstName,
+        'last_name': lastName,
         'password': password,
         'password2': password2,
       });

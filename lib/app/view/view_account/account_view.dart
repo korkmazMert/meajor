@@ -101,29 +101,29 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                     }
                   },
                 ),
-                ListenableBuilder(
-                  listenable: _localizationManager,
-                  builder: (context, child) => ListTile(
-                    title: const Text('Dil'),
-                    trailing: DropdownButton(
-                      isDense: true,
-                      underline: const SizedBox.shrink(),
-                      value: _localizationManager.currentLanguage,
-                      items: Language.values
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        if (value != null &&
-                            value != _localizationManager.currentLanguage) {
-                          _localizationManager.changeLanguage(value);
-                        }
-                      },
-                    ),
-                  ),
-                ),
+                // ListenableBuilder(
+                //   listenable: _localizationManager,
+                //   builder: (context, child) => ListTile(
+                //     title: const Text('Dil'),
+                //     trailing: DropdownButton(
+                //       isDense: true,
+                //       underline: const SizedBox.shrink(),
+                //       value: _localizationManager.currentLanguage,
+                //       items: Language.values
+                //           .map((e) => DropdownMenuItem(
+                //                 value: e,
+                //                 child: Text(e.name),
+                //               ))
+                //           .toList(),
+                //       onChanged: (value) {
+                //         if (value != null &&
+                //             value != _localizationManager.currentLanguage) {
+                //           _localizationManager.changeLanguage(value);
+                //         }
+                //       },
+                //     ),
+                //   ),
+                // ),
                 if (state.state == GeneralStates.signedin &&
                     state.accountInfo != null)
                   ListTile(
@@ -142,14 +142,14 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                           });
                     },
                   ),
-                ElevatedButton(
-                    onPressed: () {
-                      messenger.showSnackBar(
-                          message: AppLocalizations.of(context)!.greeting);
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.showSnackbar,
-                    ))
+                // ElevatedButton(
+                //     onPressed: () {
+                //       messenger.showSnackBar(
+                //           message: AppLocalizations.of(context)!.greeting);
+                //     },
+                //     child: Text(
+                //       AppLocalizations.of(context)!.showSnackbar,
+                //     ))
               ],
             );
           },

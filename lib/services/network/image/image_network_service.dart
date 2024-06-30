@@ -6,14 +6,16 @@ import 'dart:io';
 import 'package:alisatiyor/models/get_cargo_cost/get_cargo_cost.dart';
 import 'package:alisatiyor/models/save_image_model/save_image_model.dart';
 import 'package:alisatiyor/models/user_images/user_images.dart';
+import 'package:alisatiyor/services/network/image/image_network_service_impl.dart';
 import 'package:alisatiyor/services/network/network_manager.dart';
 import 'package:dio/dio.dart';
 
-class ImageNetworkService {
+class ImageNetworkService implements ImageNetworkServiceImpl {
   ImageNetworkService._();
   static final ImageNetworkService instance = ImageNetworkService._();
   Dio dio = NetworkManager.instance.dio;
 
+  @override
   Future<UserImages> getUserImages() async {
     try {
       final response = await dio.get('images/get_users_images/');
@@ -24,6 +26,7 @@ class ImageNetworkService {
     }
   }
 
+  @override
   Future<SaveImageModel> saveImage(File imageFile,
       {bool isImageProcessed = false}) async {
     try {
@@ -41,10 +44,12 @@ class ImageNetworkService {
     }
   }
 
+  @override
   Future<GetCargoCost> getCargoCost(
       {required int imageId,
       required double height,
       required double width,
+      required double weight,
       required String fromWhere,
       required String toWhere}) async {
     try {
@@ -52,6 +57,7 @@ class ImageNetworkService {
         'image_id': imageId,
         'height': height,
         'width': width,
+        'weight': weight,
         'from_where': fromWhere,
         'to_where': toWhere,
       });
@@ -63,6 +69,7 @@ class ImageNetworkService {
     }
   }
 
+  @override
   Future<GetCargoCost> updateCargoCost(
       {required int imageId,
       required String fromWhere,

@@ -101,9 +101,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SignupRoute.name: (routeData) {
+      final args = routeData.argsAs<SignupRouteArgs>(
+          orElse: () => const SignupRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SignupView(),
+        child: SignupView(key: args.key),
       );
     },
   };
@@ -386,14 +388,28 @@ class SigninRouteArgs {
 
 /// generated route for
 /// [SignupView]
-class SignupRoute extends PageRouteInfo<void> {
-  const SignupRoute({List<PageRouteInfo>? children})
-      : super(
+class SignupRoute extends PageRouteInfo<SignupRouteArgs> {
+  SignupRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SignupRoute.name,
+          args: SignupRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SignupRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SignupRouteArgs> page = PageInfo<SignupRouteArgs>(name);
+}
+
+class SignupRouteArgs {
+  const SignupRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SignupRouteArgs{key: $key}';
+  }
 }

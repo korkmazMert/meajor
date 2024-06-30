@@ -34,7 +34,9 @@ Future<void> main() async {
         ],
         child: BlocListener<GeneralCubit, GeneralState>(
           listener: (context, state) {
-            context.read<MessagesCubit>().getChatRooms();
+            if (state.state != GeneralStates.signedout) {
+              context.read<MessagesCubit>().getChatRooms();
+            }
           },
           child: const App(),
         ),

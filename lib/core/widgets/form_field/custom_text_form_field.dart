@@ -38,6 +38,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           return TextFormField(
             validator: widget.validator,
             controller: widget.controller,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: widget.keyboardType,
             obscureText: obscureText.value,
             decoration: InputDecoration(

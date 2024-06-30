@@ -83,6 +83,7 @@ class _AppState extends State<App> {
         listenable: _themeManager,
         builder: (context, child) => Consumer<ConnectivityProvider>(
           builder: (context, connectivity, child) => MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             scaffoldMessengerKey: Globals.scaffoldMessengerKey,
             scrollBehavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),

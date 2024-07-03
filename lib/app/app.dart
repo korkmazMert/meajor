@@ -43,7 +43,7 @@ class _AppState extends State<App> {
 
   void _notifyNewMessage(NotifyNewMessage message) {
     if (!mounted) return;
-    print('notify_new_messageeeee: $message');
+    log('notify_new_message: $message');
     //update room
     context.read<MessagesCubit>().updateRoom(message);
   }

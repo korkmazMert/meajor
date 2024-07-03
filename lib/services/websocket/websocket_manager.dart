@@ -12,6 +12,11 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 typedef MessageCallback = void Function(MessageModel message);
 typedef ConnectionCallback = void Function(WebsocketConnectionModel connection);
 typedef NotifyNewMessageCallback = void Function(NotifyNewMessage message);
+const String wsScheme = 'ws';
+// for android emulator
+const String wsHost = '10.0.2.2:8000';
+// for real device
+// const String wsHost = '192.168.1.111';
 
 class WebsocketManager {
   factory WebsocketManager() => _instance;
@@ -27,7 +32,7 @@ class WebsocketManager {
     if (controlId.myActivationUser != null) {
       try {
         final wsUrl =
-            Uri.parse('ws://10.0.2.2:8000/ws/${controlId.myActivationUser}/');
+            Uri.parse('$wsScheme://$wsHost/ws/${controlId.myActivationUser}/');
         channel = WebSocketChannel.connect(wsUrl);
 
         await channel.ready;
@@ -55,7 +60,7 @@ class WebsocketManager {
       log('Received: $message');
       log('type of message: ${message.runtimeType}');
       final messageMap = jsonDecode(message as String) as Map<String, dynamic>;
-      print('typeeee: ${messageMap['type']}');
+      log('typeeee: ${messageMap['type']}');
       if (messageMap['type'] == 'connected' ||
           messageMap['type'] == 'disconnected') {
         final decodedConnection = WebsocketConnectionModel.fromJson(messageMap);
@@ -63,10 +68,10 @@ class WebsocketManager {
           connectionCallBack(decodedConnection);
         }
       } else if (messageMap['type'] == 'notify_new_message') {
-        print('messsssage: $messageMap');
+        log('messsssage: $messageMap');
         if (notifyNewMessageCallBack != null) {
           final decodedNotifyNewMessage = NotifyNewMessage.fromJson(messageMap);
-          print('decodedNotifyNewMessage: $decodedNotifyNewMessage  ');
+          log('decodedNotifyNewMessage: $decodedNotifyNewMessage  ');
           notifyNewMessageCallBack(decodedNotifyNewMessage);
         }
       } else {
@@ -79,7 +84,7 @@ class WebsocketManager {
   }
 
   static Future<void> initMessaging(int roomId) async {
-    print('roomId: $roomId');
+    log('roomId: $roomId');
     final jsonMessage = jsonEncode({
       'type': 'init_messaging',
       'room_id': roomId,

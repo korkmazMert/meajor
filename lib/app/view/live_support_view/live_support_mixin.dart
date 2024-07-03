@@ -80,6 +80,7 @@ mixin LiveSupportMixin {
                 child: IconButton(
                   visualDensity: VisualDensity.compact,
                   padding: EdgeInsets.zero,
+                  color: Colors.white,
                   icon: const Icon(Icons.send),
                   onPressed: () {
                     _sendMessage(

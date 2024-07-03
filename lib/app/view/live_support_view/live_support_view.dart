@@ -60,6 +60,7 @@ class _LiveSupportViewState extends State<LiveSupportView>
     widget.messagesCubit.disposeChatRoom();
     messageInputController.dispose();
     WebsocketManager.disposeMessaging();
+    _messageSubscription?.cancel();
 
     super.dispose();
   }

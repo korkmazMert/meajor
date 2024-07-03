@@ -1,11 +1,8 @@
-import 'dart:developer';
-
-import 'package:alisatiyor/app/l10n/app_localizations.dart';
-import 'package:alisatiyor/app/l10n/localization_manager.dart';
 import 'package:alisatiyor/app/routes/app_routes.dart';
 import 'package:alisatiyor/app/themes/theme_manager.dart';
 import 'package:alisatiyor/app/view/cubit/general_cubit/general_cubit_cubit.dart';
 import 'package:alisatiyor/app/view/cubit/messages_cubit/messages_cubit.dart';
+import 'package:alisatiyor/core/extensions/build_context_ext.dart';
 import 'package:alisatiyor/core/snackbar/snackbar_messenger_mixin.dart';
 import 'package:alisatiyor/core/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:alisatiyor/core/widgets/form_field/custom_text_form_field.dart';
@@ -17,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AccountView extends StatelessWidget with SnackBarMessengerMixin {
   AccountView({super.key});
   final _themeManager = ThemeManager.instance;
-  final _localizationManager = LocalizationManager.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,24 +41,31 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                       CustomAlertDialog.showAlertDialog(
                           context: context,
                           title: const Text('Profili Düzenle'),
-                          content:
-                              Column(mainAxisSize: MainAxisSize.min, children: [
-                            CustomTextFormField(
-                              labelText: 'Email',
-                              hintText: state.accountInfo?.user?.email ?? '',
-                            ),
-                            const SizedBox(height: 10),
-                            CustomTextFormField(
-                              labelText: 'Ad',
-                              hintText:
-                                  state.accountInfo?.user?.firstName ?? '',
-                            ),
-                            const SizedBox(height: 10),
-                            CustomTextFormField(
-                              labelText: 'Soyad',
-                              hintText: state.accountInfo?.user?.lastName ?? '',
-                            ),
-                          ]),
+                          content: SizedBox(
+                            width: context.width * 0.8,
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CustomTextFormField(
+                                    labelText: 'Email',
+                                    hintText:
+                                        state.accountInfo?.user?.email ?? '',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  CustomTextFormField(
+                                    labelText: 'Ad',
+                                    hintText:
+                                        state.accountInfo?.user?.firstName ??
+                                            '',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  CustomTextFormField(
+                                    labelText: 'Soyad',
+                                    hintText:
+                                        state.accountInfo?.user?.lastName ?? '',
+                                  ),
+                                ]),
+                          ),
                           confirmText: 'Kaydet');
                     },
                   ),
@@ -71,12 +74,12 @@ class AccountView extends StatelessWidget with SnackBarMessengerMixin {
                   builder: (context, child) => ListTile(
                     title: const Text('Karanlık Mod'),
                     trailing: Switch.adaptive(
-                      value: _themeManager.themeMode != ThemeMode.light,
+                      value: _themeManager.themeMode == ThemeMode.dark,
                       onChanged: (value) {
                         _themeManager.toggleTheme(
-                            _themeManager.themeMode == ThemeMode.light
-                                ? ThemeMode.dark
-                                : ThemeMode.light);
+                            _themeManager.themeMode == ThemeMode.dark
+                                ? ThemeMode.light
+                                : ThemeMode.dark);
                       },
                     ),
                   ),

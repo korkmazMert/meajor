@@ -38,7 +38,7 @@ class CustomAlertDialog {
     required Widget? content,
     required String confirmText,
     void Function()? onConfirm,
-    String cancelText = 'Cancel',
+    String cancelText = 'İptal',
     void Function()? onPressed,
   }) async {
     return showDialog(

@@ -17,6 +17,10 @@ class ImageCubit extends Cubit<ImageState> {
     emit(state.copyWith(state: ImageStates.loading));
   }
 
+  void disposeImages() {
+    emit(const ImageState());
+  }
+
   Future<void> getUserImages() async {
     loading();
     try {
